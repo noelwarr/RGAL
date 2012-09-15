@@ -1,7 +1,9 @@
+pwd = Dir.pwd
+Dir.chdir(File.join(File.dirname(__FILE__),"cpp"))
 require 'mkmf-rice'
-libraries = "-lCGAL -lgmp -lmpfr"
 puts `clear`
-Dir.chdir(File.join(File.dirname(__FILE__.),"cpp"))
+start = Time.now
+libraries = "-lCGAL -lgmp -lmpfr"
 create_makefile 'cgal'
 puts 'modifying makefile for CGAL'
 filecontent = File.open('Makefile').to_a
@@ -16,7 +18,8 @@ File.open('Makefile', "w+"){|file|
 	}  
 }
 puts 'making'
-start = Time.now
 puts `make`
-puts 'Done! (#{Time.now-start} secs)'
+Dir.chdir(pwd)
+puts `mv cpp/cgal.so .`
+puts "Done! (#{Time.now-start} secs)"
 

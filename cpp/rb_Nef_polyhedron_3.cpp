@@ -126,8 +126,25 @@ Iso_cuboid_3 bounding_box(Nef_polyhedron_3 N){
   }	
 	return CGAL::bounding_box(points.begin(),points.end());
 }
+/*
+String to_s(Nef_polyhedron_3 N){
+	stringstream ss;
+	ss << N;
+	return String(ss.str());
+}
 
+Nef_polyhedron_3 load(String s){
+	stringstream ss;
+	ss << s.c_str();
+	Nef_polyhedron_3 N;
+	ss >> N;
+	return N;
+}
 
+bool is_bounded(Nef_polyhedron_3 N){
+	return N.is_bounded();
+}
+*/
 
 Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 
@@ -137,10 +154,12 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_constructor(Constructor<Nef_polyhedron_3>())
 		.define_singleton_method("build", &build)
 		.define_singleton_method("build_polyline", &build_polyline)
+//		.define_singleton_method("load", &load)
 		.define_method("simple?", &Nef_polyhedron_3::is_simple)
 		.define_method("valid?", np3_is_valid(&Nef_polyhedron_3::is_valid))
 		.define_method("empty?", &Nef_polyhedron_3::is_empty)
 		.define_method("space?", &Nef_polyhedron_3::is_space)
+//		.define_method("bounded?", &is_bounded)
 		.define_method("+", &Nef_polyhedron_3::operator+)
 		.define_method("-", &Nef_polyhedron_3::operator-)
 		.define_method("*", &Nef_polyhedron_3::operator*)
@@ -149,6 +168,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_method("to_off", &to_off)
 		.define_method("split", &split)
 		.define_method("bounding_box", &bounding_box)
+//		.define_method("to_s", &to_s)
 	;
 
 	return rb_cNef_polyhedron_3;

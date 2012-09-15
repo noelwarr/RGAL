@@ -16,13 +16,14 @@
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <CGAL/Nef_polyhedron_3.h>
+#include <CGAL/IO/Nef_polyhedron_iostream_3.h>
 #include <CGAL/minkowski_sum_3.h>
 #include <CGAL/Polygon_2.h>
 #include <CGAL/Polygon_with_holes_2.h>
 #include <CGAL/Polygon_set_2.h>
 #include <CGAL/approximated_offset_2.h>
 #include <CGAL/offset_polygon_2.h>
-#include <CGAL/bounding_box.h> 
+#include <CGAL/bounding_box.h>
 
 
 typedef CGAL::Exact_predicates_exact_constructions_kernel	Kernel;
