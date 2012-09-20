@@ -6,6 +6,6 @@
 using namespace std;
 using namespace Rice;
 
-Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL );
+Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL);
  
 #endif

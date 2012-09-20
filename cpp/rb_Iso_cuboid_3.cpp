@@ -50,9 +50,7 @@ Nef_polyhedron_3 to_nef(Iso_cuboid_3 cuboid){
 	return Nef_polyhedron_3(P);
 }
 
-/*Array to_a(Iso_cuboid_3 cuboid){
-	return Array();
-}*/
+
 
 Data_Type<Iso_cuboid_3> define_Iso_cuboid_3(Rice::Module rb_mCGAL ) {
 
@@ -60,7 +58,14 @@ Data_Type<Iso_cuboid_3> define_Iso_cuboid_3(Rice::Module rb_mCGAL ) {
 			define_class_under<Iso_cuboid_3>(rb_mCGAL, "Iso_cuboid_3")
 			.define_singleton_method("build", &build_cuboid)
 			.define_method("to_nef", &to_nef)
+			.define_method("xmin", &Iso_cuboid_3::xmin)
+			.define_method("ymin", &Iso_cuboid_3::ymin)
+			.define_method("zmin", &Iso_cuboid_3::zmin)
+			.define_method("xmax", &Iso_cuboid_3::xmax)
+			.define_method("ymax", &Iso_cuboid_3::ymax)
+			.define_method("zmax", &Iso_cuboid_3::zmax)
 		;
+
 
 	return rb_cIso_cuboid_3;
 }

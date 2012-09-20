@@ -27,6 +27,7 @@
 
 
 typedef CGAL::Exact_predicates_exact_constructions_kernel	Kernel;
+typedef CGAL::Lazy_exact_nt<CGAL::Gmpq>	 									Lazy_exact_nt;
 typedef Kernel::Point_2																		Point_2;
 typedef Kernel::Point_3																		Point_3;
 typedef Kernel::Iso_cuboid_3															Iso_cuboid_3;

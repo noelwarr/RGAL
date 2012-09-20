@@ -1,0 +1,4 @@
+ruby extconf.rb
+echo Running test.rb
+ruby test.rb
+echo Done!

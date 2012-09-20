@@ -12,6 +12,7 @@
 #include "rb_Polygon_with_holes_2.h"
 #include "rb_Polygon_2.h"
 #include "rb_Iso_cuboid_3.h"
+#include "rb_Lazy_exact_nt.h"
 
 #include "defs.h"
 
@@ -73,6 +74,9 @@ void Init_cgal(void)
 
 		Data_Type<Iso_cuboid_3> rb_cIso_cuboid_3 =
 			define_Iso_cuboid_3(rb_mCGAL);
+
+		Data_Type<Lazy_exact_nt> rb_cLazy_exact_nt =
+			define_Lazy_exact_nt(rb_mCGAL);
 		
   }
   RUBY_CATCH
