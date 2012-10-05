@@ -7,44 +7,45 @@ module CGAL
 			result = [curves[0].source]
 			curves.each{|curve|
 				if curve.circular?
-					precision = Math::PI / 12
-					radius = curve.radius
-					center = curve.center.to_a
-					points = [curve.source, curve.target]
-					rel_coordinates = points.collect{|point|
-						p = point.to_a
-						c = center
-						[p[0]-c[0], p[1]-c[1]]
-					}
-					angles = rel_coordinates.collect{|p|
-						if p[0] != 0 && p[1] != 0
-							a = Math::atan(p[0]/p[1])
-						elsif p[0] == 0 # 90 or 270
-							a =( (p[1] > 0) ? (Math::PI/2) : (Math::PI*(3.to_f/2.to_f)) )
-						elsif p[1] == 0 # 0 or 180
-							a =( (p[0] > 0) ? 0 : Math::PI )
-						end
-					}
-					direction = (curve.orientation == "clockwise" ? -1 : 1)
-					angle = (angles[0] - angles[1]).divmod(Math::PI)[1] * direction
-					num_of_points = angle.abs.divmod(precision)[0]
-					step = angle.to_f / num_of_points.to_f
-					for i in 1..num_of_points
-						new_angle = angles[0] + (i * step)
-						x = (Math::cos(new_angle) * radius) + center[0]
-						y = (Math::sin(new_angle) * radius) + center[1]
-						result.push CGAL::Point_2.build(x,y)
-					end
+					result += VTB::circular_curve_to_points(curve)
 				else
 					result.push curve.target
 				end
 			}
 			return result
 		end
-	end
-	class Nef_polyhedron_3
-		def to_json
 
+		module VTB
+			def self.angle(point1, point2)				
+				x, y = point1.to_a.zip(point2.to_a).collect{|c1, c2| c2 - c1}
+				q = 0.0							if (x >= 0) && (y >= 0)
+				q = Math::PI*(0.5)	if (x <= 0) && (y >  0)
+				q = Math::PI*(1.0)	if (x <  0) && (y <= 0)
+				q = Math::PI*(1.5)	if (x >= 0) && (y <  0)
+				return q if (x == 0 || y == 0)
+				return Math::atan(y.to_f/x.to_f).abs + q
+			end
+			
+			def self.circular_curve_to_points(curve)
+				result = Array.new
+				precision = Math::PI/24
+				a1 = angle(curve.center, curve.source)
+				a2 = angle(curve.center, curve.target)
+				a2 = (a2 > a1) ? a2 : (a2 + Math::PI * 2)
+				angle = (a2 - a1)
+				number_of_steps = (angle / precision).to_i.abs
+				step_angle = (angle / number_of_steps)
+				(1..number_of_steps-1).each{|step|
+					a = a1 + ( step_angle * step )
+					x = (Math::cos(a) * curve.radius) + curve.center.x
+					y = Math::sin(a) * curve.radius + curve.center.y
+					puts (a/Math::PI) * 180
+					result.push CGAL::Point_2.build(x,y)
+				}
+				result += [curve.target]
+				return result
+			end
 		end
+
 	end
 end
