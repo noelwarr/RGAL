@@ -39,7 +39,6 @@ module CGAL
 					a = a1 + ( step_angle * step )
 					x = (Math::cos(a) * curve.radius) + curve.center.x
 					y = Math::sin(a) * curve.radius + curve.center.y
-					puts (a/Math::PI) * 180
 					result.push CGAL::Point_2.build(x,y)
 				}
 				result += [curve.target]
