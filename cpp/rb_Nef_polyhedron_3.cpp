@@ -53,6 +53,28 @@ Nef_polyhedron_3 build(Array points, Array faces){
 	return N;
 }
 
+
+
+
+/* Test method
+ The goal is to show the qt widget with the polyhedron. 
+ TODO: Move it out of this class once stable.
+ */
+void show(Nef_polyhedron_3 N){
+
+  char *args[]={"Nef_Polyhedron_3 Viewer"};
+  int argc=1;
+  
+  QApplication a(argc, args); 
+  CGAL::Qt_widget_Nef_3<Nef_polyhedron_3>* w =
+    new CGAL::Qt_widget_Nef_3<Nef_polyhedron_3>(N);
+  a.setMainWidget(w);
+  w->show();
+  
+  a.exec();
+}
+
+
 Nef_polyhedron_3 build_polyline(Array points){
 	typedef Point_3* 																		point_iterator;
 	typedef std::pair<point_iterator,point_iterator> 		point_range;
@@ -169,6 +191,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_method("to_off", &to_off)
 		.define_method("split", &split)
 		.define_method("bounding_box", &bounding_box)
+		.define_method("show", &show)
 //		.define_method("to_s", &to_s)
 	;
 

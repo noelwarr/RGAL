@@ -3,6 +3,12 @@
 
 #include "defs.h"
 
+#include <CGAL/basic.h>
+#include <CGAL/Gmpz.h>
+#include <CGAL/Homogeneous.h>
+#include <CGAL/IO/Qt_widget_Nef_3.h>
+#include <qapplication.h>
+
 using namespace std;
 using namespace Rice;
 
