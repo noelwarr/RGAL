@@ -149,8 +149,8 @@ Iso_cuboid_3 bounding_box(Nef_polyhedron_3 N){
   }	
 	return CGAL::bounding_box(points.begin(),points.end());
 }
-/*
-String to_s(Nef_polyhedron_3 N){
+
+String dump(Nef_polyhedron_3 N){
 	stringstream ss;
 	ss << N;
 	return String(ss.str());
@@ -163,7 +163,7 @@ Nef_polyhedron_3 load(String s){
 	ss >> N;
 	return N;
 }
-
+/*
 bool is_bounded(Nef_polyhedron_3 N){
 	return N.is_bounded();
 }
@@ -177,7 +177,8 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_constructor(Constructor<Nef_polyhedron_3>())
 		.define_singleton_method("build", &build)
 		.define_singleton_method("build_polyline", &build_polyline)
-//		.define_singleton_method("load", &load)
+		.define_singleton_method("dump", &load)
+		.define_singleton_method("load", &load)
 		.define_method("simple?", &Nef_polyhedron_3::is_simple)
 		.define_method("valid?", np3_is_valid(&Nef_polyhedron_3::is_valid))
 		.define_method("empty?", &Nef_polyhedron_3::is_empty)
