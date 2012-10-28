@@ -28,15 +28,31 @@ Point_3 transform_Point_3(Aff_transformation_3 T, Point_3 p) {
 }
 
 
+Aff_transformation_3  compose (Aff_transformation_3 t, Aff_transformation_3 s) {
+    return t * s;
+}
+
+Aff_transformation_3  inverse (Aff_transformation_3 t) {
+    return t.inverse();
+}
+
+
 Data_Type<Aff_transformation_3> define_Aff_transformation_3(Rice::Module rb_mCGAL ) {
 
+  /*
+   * TODO: Add other methods:
+   * 	t.is_even ()
+   * 	t.is_odd ()
+   *    t.m ( int i, int j) const
+   */
+  
 	Data_Type<Aff_transformation_3> rb_cAff_transformation_3 =
 			define_class_under<Aff_transformation_3>(rb_mCGAL, "Aff_transformation_3")
 			.define_singleton_method("build_scaling", &build_scaling)
 			.define_singleton_method("build_scaling_full", &build_scaling_full)
 			.define_singleton_method("build_translation", &build_translation)
-			.define_method("*", &Aff_transformation_3::operator*) // NOT WORKING
-			.define_method("inverse", &Aff_transformation_3::inverse)
+			.define_method("*", &compose) 
+			.define_method("inverse", &inverse) 
 			.define_method("transform_Point_3", &transform_Point_3)
 		;
 
