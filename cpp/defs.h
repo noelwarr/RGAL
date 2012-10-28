@@ -47,5 +47,6 @@ typedef CGAL::Gps_circle_segment_traits_2<Kernel>  	Gps_traits_2;
 typedef Gps_traits_2::Polygon_2                    	Offset_polygon_2;
 typedef Gps_traits_2::Polygon_with_holes_2         	Offset_polygon_with_holes_2;
 typedef Offset_polygon_2::X_monotone_curve_2				X_monotone_curve_2;
+typedef CGAL::Aff_transformation_3<Kernel>	Aff_transformation_3;
 
 #endif

@@ -13,6 +13,7 @@
 #include "rb_Polygon_2.h"
 #include "rb_Iso_cuboid_3.h"
 #include "rb_Lazy_exact_nt.h"
+#include "rb_Aff_transformation_3.h"
 
 #include "defs.h"
 
@@ -77,6 +78,9 @@ void Init_cgal(void)
 
 		Data_Type<Lazy_exact_nt> rb_cLazy_exact_nt =
 			define_Lazy_exact_nt(rb_mCGAL);
+			
+		Data_Type<Aff_transformation_3> rb_Aff_transformation_3 =
+			define_Aff_transformation_3(rb_mCGAL);
 		
   }
   RUBY_CATCH

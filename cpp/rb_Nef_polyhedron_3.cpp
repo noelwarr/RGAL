@@ -177,7 +177,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_constructor(Constructor<Nef_polyhedron_3>())
 		.define_singleton_method("build", &build)
 		.define_singleton_method("build_polyline", &build_polyline)
-		.define_singleton_method("dump", &load)
+		.define_singleton_method("dump", &dump)
 		.define_singleton_method("load", &load)
 		.define_method("simple?", &Nef_polyhedron_3::is_simple)
 		.define_method("valid?", np3_is_valid(&Nef_polyhedron_3::is_valid))
