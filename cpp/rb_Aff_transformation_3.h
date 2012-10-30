@@ -6,6 +6,7 @@
 #include "rice/Constructor.hpp"
 #include "rice/Class.hpp"
 #include "rice/to_from_ruby.hpp"
+#include "rice/Array.hpp"
 
 #include "defs.h"
 
