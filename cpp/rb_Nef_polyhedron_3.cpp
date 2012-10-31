@@ -163,7 +163,10 @@ Nef_polyhedron_3 load(String s){
 	ss >> N;
 	return N;
 }
+
+
 /*
+ *
 bool is_bounded(Nef_polyhedron_3 N){
 	return N.is_bounded();
 }
@@ -193,6 +196,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_method("split", &split)
 		.define_method("bounding_box", &bounding_box)
 		.define_method("show", &show)
+		.define_method("transform", &Nef_polyhedron_3::transform)
 //		.define_method("to_s", &to_s)
 	;
 
