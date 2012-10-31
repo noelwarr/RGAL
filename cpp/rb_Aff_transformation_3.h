@@ -13,6 +13,7 @@
 using namespace std;
 using namespace Rice;
 
+
 Data_Type<Aff_transformation_3> define_Aff_transformation_3(Rice::Module rb_mCGAL);
  
 #endif

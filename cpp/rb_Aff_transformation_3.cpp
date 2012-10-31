@@ -1,12 +1,67 @@
 #include "rb_Aff_transformation_3.h"
 
 
-Aff_transformation_3 build_scaling(float s) // s: scaling factor
+Aff_transformation_3 build_scaling(double s) // s: scaling factor
 { 
   
   return CGAL::Aff_transformation_3<Kernel>  (CGAL::SCALING, s, 1.0); //to change the 3rd arg., use  build_scaling_full
   
 }
+
+
+/*
+ *  Auxiliary function to rotat around axis. Only for internal use. 
+ */
+Aff_transformation_3 build_rotation_axis(double alpha, char axis) // alpha: degrees to rotate around x-axis
+{ 
+     
+      Lazy_exact_nt diry = std::sin( alpha) * 256*256*256;
+      Lazy_exact_nt dirx = std::cos( alpha) * 256*256*256;
+      Lazy_exact_nt sin_alpha;
+      Lazy_exact_nt cos_alpha;
+      Lazy_exact_nt w;
+      Aff_transformation_3 aff;
+      CGAL::rational_rotation_approximation( dirx, diry, 
+					      sin_alpha, cos_alpha, w,
+					      Lazy_exact_nt(1), Lazy_exact_nt( 1000000));
+
+      if (axis=='x') {
+      aff = Aff_transformation_3 ( w, Lazy_exact_nt(0), Lazy_exact_nt(0),
+					Lazy_exact_nt(0), cos_alpha,-sin_alpha,
+					Lazy_exact_nt(0), sin_alpha, cos_alpha,
+					w);
+      } else if (axis=='y') {
+     
+                aff = Aff_transformation_3 ( cos_alpha, Lazy_exact_nt(0), sin_alpha,
+                                                  Lazy_exact_nt(0), w, Lazy_exact_nt(0),
+                                                  -sin_alpha, Lazy_exact_nt(0), cos_alpha,
+                                                  w);
+      } else if (axis=='z') {
+	 aff = Aff_transformation_3 ( cos_alpha,-sin_alpha, Lazy_exact_nt(0),
+                                                  sin_alpha, cos_alpha, Lazy_exact_nt(0),
+                                                  Lazy_exact_nt(0), Lazy_exact_nt(0), w,
+                                                  w);
+      }
+      
+      return aff;
+}
+
+Aff_transformation_3 build_rotation_x_axis(double alpha) // alpha: degrees to rotate
+{ 
+     return build_rotation_axis(alpha, 'x');
+}
+
+Aff_transformation_3 build_rotation_y_axis(double alpha) // alpha: degrees to rotate 
+{ 
+     return build_rotation_axis(alpha, 'y');
+}
+
+Aff_transformation_3 build_rotation_z_axis(double alpha) // alpha: degrees to rotate 
+{ 
+     return build_rotation_axis(alpha, 'z');
+}
+
+
 
  
 /*
@@ -59,14 +114,14 @@ void print_matrix (Aff_transformation_3 t) {
 }
 
 
-Aff_transformation_3 build_scaling_full(float s, float h) //Workaround to have h to be an optional argument, specifying Args was crashing irb
+Aff_transformation_3 build_scaling_full(double s, double h) //Workaround to have h to be an optional argument, specifying Args was crashing irb
 { 
   
   return CGAL::Aff_transformation_3<Kernel>  (CGAL::SCALING, s, h);
   
 }
 
-Aff_transformation_3 build_translation(float x, float y, float z) // (x,y,z): translation vector
+Aff_transformation_3 build_translation(double x, double y, double z) // (x,y,z): translation vector
 { 
   
   return CGAL::Aff_transformation_3<Kernel>  (CGAL::TRANSLATION, Nef_polyhedron_3::Vector_3(x, y, z));
@@ -111,6 +166,9 @@ Data_Type<Aff_transformation_3> define_Aff_transformation_3(Rice::Module rb_mCGA
 			.define_singleton_method("build_scaling_full", &build_scaling_full)
 			.define_singleton_method("build_translation", &build_translation)
 			.define_singleton_method("build_matrix", &build_matrix)
+			.define_singleton_method("build_rotation_x_axis", & build_rotation_x_axis)
+			.define_singleton_method("build_rotation_y_axis", & build_rotation_y_axis)
+			.define_singleton_method("build_rotation_z_axis", & build_rotation_z_axis)
 			.define_method("*", &compose) 
 			.define_method("inverse", &inverse) 
 			.define_method("is_even", &is_even) 
