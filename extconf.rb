@@ -18,7 +18,7 @@ dir_config('myQt3Libs', '/usr/include/qt3', '/usr/share/qt3/lib')
 #I think this did not work, so in addition, I did this:
 #	1) Add a line "/home/rodrigo/CGAL-4.0.2/lib" to the file /etc/ld.so.conf
 #	2) Run sudo ldupdate to reflect the changes
-dir_config('CGAL_Qt3', 'CGAL/IO', '/home/rodrigo/CGAL-4.0.2/lib') # Replace 3rd argument with right path
+dir_config('CGAL_Qt3', 'CGAL/IO', '/usr/local/lib') # Replace 3rd argument with right path
 
 create_makefile 'cgal'
 

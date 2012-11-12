@@ -140,8 +140,8 @@ preload =
 
 CXX = g++
 
-libpath = . $(libdir) /home/rodrigo/CGAL-4.0.2/lib /usr/share/qt3/lib
-LIBPATH =  -L. -L$(libdir) -L/home/rodrigo/CGAL-4.0.2/lib -L/usr/share/qt3/lib
+libpath = . $(libdir) /usr/local/lib /usr/share/qt3/lib
+LIBPATH =  -L. -L$(libdir) -L/usr/local/lib -L/usr/share/qt3/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
@@ -153,8 +153,8 @@ extout_prefix =
 target_prefix = 
 LOCAL_LIBS = 
 LIBS = -lrice -lruby-1.9.1 -lpthread -lrt -ldl -lcrypt -lm   -lc  -lCGAL -lgmp -lmpfr -lqt-mt  -lGL -lGLU -lglut -lCGAL_Qt3 
-SRCS = rb_Polygon_set_2.cpp rb_Nef_polyhedron_3.cpp rb_SVertex.cpp rb_Lazy_exact_nt.cpp rb_Vertex.cpp rb_Polygon_with_holes_2.cpp rb_Halffacet.cpp cgal.cpp rb_Point_2.cpp rb_Aff_transformation_3.cpp rb_Point_3.cpp rb_X_monotone_curve_2.cpp rb_Offset_polygon_with_holes_2.cpp rb_SHalfedge.cpp rb_Offset_polygon_2.cpp rb_Iso_cuboid_3.cpp rb_Polygon_2.cpp
-OBJS = rb_Polygon_set_2.o rb_Nef_polyhedron_3.o rb_SVertex.o rb_Lazy_exact_nt.o rb_Vertex.o rb_Polygon_with_holes_2.o rb_Halffacet.o cgal.o rb_Point_2.o rb_Aff_transformation_3.o rb_Point_3.o rb_X_monotone_curve_2.o rb_Offset_polygon_with_holes_2.o rb_SHalfedge.o rb_Offset_polygon_2.o rb_Iso_cuboid_3.o rb_Polygon_2.o
+SRCS = rb_SHalfedge.cpp rb_Halffacet.cpp rb_Point_3.cpp rb_Polygon_with_holes_2.cpp rb_Polygon_set_2.cpp rb_Aff_transformation_3.cpp rb_SVertex.cpp rb_Offset_polygon_with_holes_2.cpp rb_Polygon_2.cpp rb_Lazy_exact_nt.cpp rb_Offset_polygon_2.cpp rb_Nef_polyhedron_3.cpp rb_Vertex.cpp rb_Iso_cuboid_3.cpp cgal.cpp rb_X_monotone_curve_2.cpp rb_Point_2.cpp
+OBJS = rb_SHalfedge.o rb_Halffacet.o rb_Point_3.o rb_Polygon_with_holes_2.o rb_Polygon_set_2.o rb_Aff_transformation_3.o rb_SVertex.o rb_Offset_polygon_with_holes_2.o rb_Polygon_2.o rb_Lazy_exact_nt.o rb_Offset_polygon_2.o rb_Nef_polyhedron_3.o rb_Vertex.o rb_Iso_cuboid_3.o cgal.o rb_X_monotone_curve_2.o rb_Point_2.o
 TARGET = cgal
 DLLIB = $(TARGET).so
 EXTSTATIC = 
