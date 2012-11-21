@@ -50,6 +50,12 @@ Nef_polyhedron_3 to_nef(Iso_cuboid_3 cuboid){
 	return Nef_polyhedron_3(P);
 }
 
+double xmin(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.xmin());}
+double ymin(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.ymin());}
+double zmin(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.zmin());}
+double xmax(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.xmax());}
+double ymax(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.ymax());}
+double zmax(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.zmax());}
 
 
 Data_Type<Iso_cuboid_3> define_Iso_cuboid_3(Rice::Module rb_mCGAL ) {
@@ -58,12 +64,12 @@ Data_Type<Iso_cuboid_3> define_Iso_cuboid_3(Rice::Module rb_mCGAL ) {
 			define_class_under<Iso_cuboid_3>(rb_mCGAL, "Iso_cuboid_3")
 			.define_singleton_method("build", &build_cuboid)
 			.define_method("to_nef", &to_nef)
-			.define_method("xmin", &Iso_cuboid_3::xmin)
-			.define_method("ymin", &Iso_cuboid_3::ymin)
-			.define_method("zmin", &Iso_cuboid_3::zmin)
-			.define_method("xmax", &Iso_cuboid_3::xmax)
-			.define_method("ymax", &Iso_cuboid_3::ymax)
-			.define_method("zmax", &Iso_cuboid_3::zmax)
+			.define_method("xmin", &xmin)
+			.define_method("ymin", &ymin)
+			.define_method("zmin", &zmin)
+			.define_method("xmax", &xmax)
+			.define_method("ymax", &ymax)
+			.define_method("zmax", &zmax)
 		;
 
 
