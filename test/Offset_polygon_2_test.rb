@@ -8,4 +8,4 @@ pwh = ps.to_a[0]
 opwh = pwh.offset(0.1)
 points = opwh.outer_boundary.to_points.collect{|p| CGAL::Point_3.build p.x, p.y, 0 }
 nef2 = CGAL::Nef_polyhedron_3.build_polyline points
-(nef1 + nef2).show
+#(nef1 + nef2).show

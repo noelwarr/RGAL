@@ -39,6 +39,7 @@ typedef Nef_polyhedron_3::Halffacet												Halffacet;
 typedef Nef_polyhedron_3::SHalfedge_const_handle					SHalfedge;
 typedef Nef_polyhedron_3::Object_handle										Object_handle;
 typedef Nef_polyhedron_3::SVertex_const_handle						SVertex;
+typedef CGAL::Aff_transformation_3<Kernel>								Aff_transformation_3;
 
 typedef CGAL::Polygon_2<Kernel>  		   										Polygon_2;
 typedef CGAL::Polygon_with_holes_2<Kernel>  							Polygon_with_holes_2;
