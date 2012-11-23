@@ -105,7 +105,7 @@ warnflags = -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-m
 CFLAGS   = -fPIC -fno-strict-aliasing -g -g -O2 -fPIC -frounding-math  
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS =  -ICGAL/IO -I/usr/include/qt3  $(DEFS) $(cppflags)  -I/var/lib/gems/1.9.1/gems/rice-1.4.3/ruby/lib/include
+CPPFLAGS =  -ICGAL/IO  $(DEFS) $(cppflags)  -I/var/lib/gems/1.9.1/gems/rice-1.4.3/ruby/lib/include
 CXXFLAGS = $(CFLAGS)  -Wall -g
 ldflags  = -L.  -rdynamic -Wl,-export-dynamic  -L/var/lib/gems/1.9.1/gems/rice-1.4.3/ruby/lib/lib
 dldflags = 
@@ -140,8 +140,8 @@ preload =
 
 CXX = g++
 
-libpath = . $(libdir) /usr/local/lib /usr/share/qt3/lib
-LIBPATH =  -L. -L$(libdir) -L/usr/local/lib -L/usr/share/qt3/lib
+libpath = . $(libdir) /usr/local/lib
+LIBPATH =  -L. -L$(libdir) -L/usr/local/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
