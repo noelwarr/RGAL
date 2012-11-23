@@ -5,7 +5,7 @@ module CGAL
 			result = [curves[0].source]
 			curves.each{|curve|
 				if curve.circular?
-					result += VTB::circular_curve_to_points(curve)
+					result += circular_curve_to_points(curve)
 				else
 					result.push curve.target
 				end

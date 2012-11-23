@@ -27,9 +27,8 @@ Dir.chdir("..")
 if !make_result
 	#error message if make fails
 	puts "One of the libraies couldn't be found."
-	puts "Either specify it at the command prompt using the following syntax..."
-	puts "  --with-name_of_lib-include=path_to_lib"
-	puts "or create a file in this folder called 'dir_config' like so..."
+	puts "Create a file in this folder called 'dir_config'"
+	puts " like so..."
 	puts "  name_of_lib path_to_headers path_to_lib"
 	puts "just leave a space between each parameter and a new line for each library"
 else
@@ -38,7 +37,6 @@ else
 	require_relative("cgal.rb")
 	puts "running tests..."
 	Dir.glob("test/*.rb").each{|path|
-		puts "path"
 		begin
 			load(path)
 			puts "#{path}".ljust(30) + " OK"
