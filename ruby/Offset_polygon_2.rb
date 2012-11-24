@@ -17,12 +17,14 @@ module CGAL
 
 		def angle(point1, point2)				
 			x, y = point1.to_a.zip(point2.to_a).collect{|c1, c2| c2 - c1}
-			q = 0.0							if (x >= 0) && (y >= 0)
-			q = Math::PI*(0.5)	if (x <= 0) && (y >  0)
-			q = Math::PI*(1.0)	if (x <  0) && (y <= 0)
-			q = Math::PI*(1.5)	if (x >= 0) && (y <  0)
-			return q if (x == 0 || y == 0)
-			return Math::atan(y.to_f/x.to_f).abs + q
+			atan = Math::atan(y.to_f/x.to_f).abs
+			pi = Math::PI
+			case
+				when (x >= 0) && (y >= 0) then atan
+				when (x <  0) && (y >= 0) then pi - atan
+				when (x <  0) && (y <  0) then pi + atan
+				when (x >= 0) && (y <  0) then (2 * pi) - atan
+			end
 		end
 		
 		def circular_curve_to_points(curve)
