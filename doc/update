@@ -1,0 +1,9 @@
+mv doc/update .
+rdoc
+mv update doc/
+git commit -am "Updated documentation"
+git checkout gh-pages
+git merge master
+git push origin ghpages
+git checkout master
+
