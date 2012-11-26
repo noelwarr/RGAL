@@ -1,1 +1,0 @@
-CGAL::Point_3.build(1,1,1)
