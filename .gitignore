@@ -1,4 +1,3 @@
 mkmf.log
 dir_config
-doc/*
-!doc/update
+doc
