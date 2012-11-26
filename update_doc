@@ -1,0 +1,7 @@
+rdoc
+git checkout gh-pages
+git checkout master doc
+git commit -am "Updated documentation"
+git push
+git checkout master
+
