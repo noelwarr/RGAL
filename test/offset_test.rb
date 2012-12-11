@@ -44,3 +44,4 @@ offsets.collect!{|polygon2|
                                                                            }
                 }
 (offsets.inject{|prev, curr| prev + curr}+fullOriginalPolygon).show
+

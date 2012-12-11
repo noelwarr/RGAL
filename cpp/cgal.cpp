@@ -15,6 +15,7 @@
 #include "rb_Lazy_exact_nt.h"
 #include "rb_Aff_transformation_3.h"
 #include "inward_offset.h"
+#include "visualization_tools.h"
 
 #include "defs.h"
 
@@ -35,7 +36,9 @@ void Init_cgal(void)
   {
 		Rice::Module rb_mCGAL = define_module("CGAL")
 			.define_module_function("minkowski_sum_3", &minkowski_sum_3)
-			.define_module_function("inward_offset_polygon", &inward_offset_polygon);
+			.define_module_function("inward_offset_polygon", &inward_offset_polygon)
+			.define_module_function("show_Nef_polyhedron_3", &show_Nef_polyhedron_3)
+		;
 		
 		Data_Type<Nef_polyhedron_3> rb_cNef_polyhedron_3 =
 			define_Nef_polyhedron_3(rb_mCGAL);
