@@ -3,7 +3,7 @@ require 'mkmf-rice'
 start = Time.now
 
 # Extra configuration parameters for CGAL and others
-$LIBS <<  "  -lCGAL -lgmp -lmpfr -lqt-mt  -lGL -lGLU -lglut -lCGAL_Qt3 "
+$LIBS <<  "  -lCGAL -lgmp -lmpfr -lqt-mt  -lGL -lGLU -lglut -lCGAL_Qt3 -lCGAL_Core "
 $CFLAGS << " -frounding-math "
 
 

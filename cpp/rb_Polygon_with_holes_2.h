@@ -3,6 +3,13 @@
 
 #include "defs.h"
 
+#include<vector>
+
+#include<boost/shared_ptr.hpp>
+
+
+#include<CGAL/Polygon_with_holes_2.h>
+
 using namespace std;
 using namespace Rice;
 
