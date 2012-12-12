@@ -28,7 +28,6 @@ Nef_polyhedron_3 minkowski_sum_3 (Nef_polyhedron_3 N1, Nef_polyhedron_3 N2){
 }
 
 
-
 extern "C"
 void Init_cgal(void)
 {

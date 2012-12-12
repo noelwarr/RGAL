@@ -35,7 +35,7 @@ using namespace Rice;
 
 Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetStep){
     
-      double MAX_COUNTOURS = 1000; //Limit variable in case something goes wrong
+      double MAX_COUNTOURS = 100; //Limit variable in case something goes wrong
       double MIN_POLYGON_AREA = 0.00001; // Minimum area to consider an offset polygon
       
       SsPtr iss = CGAL::create_interior_straight_skeleton_2(poly);
@@ -72,7 +72,8 @@ Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetSt
       } while (!curr_offset_polygons.empty() && count<MAX_COUNTOURS);
       
       if (count==MAX_COUNTOURS) {
-	  cout << "inward_offset error: max number of contours generated, aborting generation" << endl;
+	  cout << "inward_offset error: max number of contours generated, aborting generation." << endl;
+	  cout << "Verify points are given in CCW order for the outer boundary, and CW for holes." << endl;
       }
 	
 	
