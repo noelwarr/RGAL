@@ -1,8 +1,10 @@
 #include "rb_Nef_polyhedron_3.h"
 #include "rb_Vertex.h"
+#include "rb_SVertex.h"
+#include "rb_Halfedge.h"
+#include "rb_SFace.h"
 #include "rb_Halffacet.h"
 #include "rb_SHalfedge.h"
-#include "rb_SVertex.h"
 #include "rb_Point_2.h"
 #include "rb_Point_3.h"
 #include "rb_X_monotone_curve_2.h"
@@ -16,6 +18,7 @@
 #include "rb_Aff_transformation_3.h"
 
 #include "defs.h"
+
 
 using namespace std;
 using namespace Rice;
@@ -38,17 +41,23 @@ void Init_cgal(void)
 			define_Nef_polyhedron_3(rb_mCGAL);
 
 		Data_Type<Vertex> rb_cVertex =
-			define_Vertex(rb_mCGAL);		
+		  define_Vertex(rb_mCGAL);		
 
+		Data_Type<Halfedge> rb_cHalfedge =
+			define_Halfedge(rb_mCGAL);		
+		
 		Data_Type<Halffacet> rb_cHalffacet =
 			define_Halffacet(rb_mCGAL);
-		
+
 		Data_Type<SHalfedge> rb_cSHalfedge =
 			define_SHalfedge(rb_mCGAL);		
 
-		Data_Type<SVertex> rb_cSVertex =
-			define_SVertex(rb_mCGAL);		
+		Data_Type<SFace> rb_cSFace =
+			define_SFace(rb_mCGAL);		
 
+	/*	Data_Type<SVertex> rb_cSVertex =
+			define_SVertex(rb_mCGAL);		
+*/
 		Data_Type<Point_3> rb_cPoint_3 =
 			define_Point_3(rb_mCGAL);
 

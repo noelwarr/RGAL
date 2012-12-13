@@ -34,20 +34,21 @@ typedef Kernel::Iso_cuboid_3															Iso_cuboid_3;
 typedef CGAL::Polyhedron_3<Kernel>     										Polyhedron_3;
 typedef Polyhedron_3::HalfedgeDS													HalfedgeDS;
 typedef CGAL::Nef_polyhedron_3<Kernel>  									Nef_polyhedron_3;
-typedef Nef_polyhedron_3::Vertex													Vertex;
-typedef Nef_polyhedron_3::Halffacet												Halffacet;
-typedef Nef_polyhedron_3::SHalfedge_const_handle					SHalfedge;
-typedef Nef_polyhedron_3::Object_handle										Object_handle;
+typedef Nef_polyhedron_3::Vertex_const_handle							Vertex;
+typedef Nef_polyhedron_3::Halfedge_const_handle						Halfedge;
+typedef Nef_polyhedron_3::Halffacet_const_handle					Halffacet;
 typedef Nef_polyhedron_3::SVertex_const_handle						SVertex;
+typedef Nef_polyhedron_3::SHalfedge_const_handle					SHalfedge;
+typedef Nef_polyhedron_3::SFace_const_handle							SFace;
 typedef CGAL::Aff_transformation_3<Kernel>								Aff_transformation_3;
 
 typedef CGAL::Polygon_2<Kernel>  		   										Polygon_2;
 typedef CGAL::Polygon_with_holes_2<Kernel>  							Polygon_with_holes_2;
 typedef CGAL::Polygon_set_2<Kernel>  											Polygon_set_2;
-typedef CGAL::Gps_circle_segment_traits_2<Kernel>  	Gps_traits_2;
-typedef Gps_traits_2::Polygon_2                    	Offset_polygon_2;
-typedef Gps_traits_2::Polygon_with_holes_2         	Offset_polygon_with_holes_2;
-typedef Offset_polygon_2::X_monotone_curve_2				X_monotone_curve_2;
+typedef CGAL::Gps_circle_segment_traits_2<Kernel> 			 	Gps_traits_2;
+typedef Gps_traits_2::Polygon_2                    				Offset_polygon_2;
+typedef Gps_traits_2::Polygon_with_holes_2         				Offset_polygon_with_holes_2;
+typedef Offset_polygon_2::X_monotone_curve_2							X_monotone_curve_2;
 typedef CGAL::Aff_transformation_3<Kernel>	Aff_transformation_3;
 
 #endif

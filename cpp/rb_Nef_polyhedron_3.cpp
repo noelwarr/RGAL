@@ -45,7 +45,7 @@ public:
 /*-----------MAIN METHODS------------*/
 
 
-Nef_polyhedron_3 build(Array points, Array faces){
+Nef_polyhedron_3 build_polyhedron(Array points, Array faces){
 	Polyhedron_builder<HalfedgeDS> pb(points, faces);
 	Polyhedron_3 P;
 	P.delegate(pb);
@@ -53,7 +53,20 @@ Nef_polyhedron_3 build(Array points, Array faces){
 	return N;
 }
 
-
+Nef_polyhedron_3 build_polygon(Array points){
+	vector<Point_3> pts;
+	for (unsigned int i = 0; i < points.size(); i++) {
+		Array coordinate = Array(points[i]);
+		Point_3 point(
+				from_ruby<double>(coordinate[0]),
+				from_ruby<double>(coordinate[1]),
+				from_ruby<double>(coordinate[2]));
+		pts.push_back(point);
+	}
+	Nef_polyhedron_3 N( pts.begin(), 
+											pts.end());
+	return N;
+}
 
 
 /* Test method
@@ -125,9 +138,19 @@ Array vertices(Nef_polyhedron_3 N){
 	vector<Vertex> vertices;
 	Nef_polyhedron_3::Vertex_const_iterator vci;
 	CGAL_forall_vertices(vci,N){
-		vertices.push_back(*vci);
+		vertices.push_back(vci);
   }
 	Array out(vertices.begin(), vertices.end());
+	return out;
+}
+
+Array halfedges(Nef_polyhedron_3 N){
+	vector<Halfedge> halfedges;
+	Nef_polyhedron_3::Halfedge_const_iterator heci;
+	CGAL_forall_halfedges(heci,N){
+		halfedges.push_back(heci);
+  }
+	Array out(halfedges.begin(), halfedges.end());
 	return out;
 }
 
@@ -135,7 +158,7 @@ Array halffacets(Nef_polyhedron_3 N){
 	vector<Halffacet> halffacets;
 	Nef_polyhedron_3::Halffacet_const_iterator hfci;
 	CGAL_forall_halffacets(hfci,N){
-		halffacets.push_back(*hfci);
+		halffacets.push_back(hfci);
   }
 	Array out(halffacets.begin(), halffacets.end());
 	return out;
@@ -164,40 +187,35 @@ Nef_polyhedron_3 load(String s){
 	return N;
 }
 
+bool is_valid(Nef_polyhedron_3 N){ return N.is_valid();}
+bool is_bounded(Nef_polyhedron_3 N){ return N.is_bounded();}
 
-/*
- *
-bool is_bounded(Nef_polyhedron_3 N){
-	return N.is_bounded();
-}
-*/
 
 Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 
-	typedef bool (Nef_polyhedron_3::*np3_is_valid)();
 	Data_Type<Nef_polyhedron_3> rb_cNef_polyhedron_3 =
 		define_class_under<Nef_polyhedron_3>(rb_mCGAL, "Nef_polyhedron_3")
-		.define_constructor(Constructor<Nef_polyhedron_3>())
-		.define_singleton_method("build", &build)
+		.define_singleton_method("build_polyhedron", &build_polyhedron)
 		.define_singleton_method("build_polyline", &build_polyline)
+		.define_singleton_method("build_polygon", &build_polygon)
 		.define_singleton_method("dump", &dump)
 		.define_singleton_method("load", &load)
 		.define_method("simple?", &Nef_polyhedron_3::is_simple)
-		.define_method("valid?", np3_is_valid(&Nef_polyhedron_3::is_valid))
 		.define_method("empty?", &Nef_polyhedron_3::is_empty)
 		.define_method("space?", &Nef_polyhedron_3::is_space)
-//		.define_method("bounded?", &is_bounded)
+		.define_method("valid?", &is_valid)
+		.define_method("bounded?", &is_bounded)
 		.define_method("+", &Nef_polyhedron_3::operator+)
 		.define_method("-", &Nef_polyhedron_3::operator-)
 		.define_method("*", &Nef_polyhedron_3::operator*)
 		.define_method("vertices", &vertices)
+		.define_method("halfedges", &halfedges)
 		.define_method("halffacets", &halffacets)
 		.define_method("to_off", &to_off)
 		.define_method("split", &split)
 		.define_method("bounding_box", &bounding_box)
 		.define_method("show", &show)
 		.define_method("transform", &Nef_polyhedron_3::transform)
-//		.define_method("to_s", &to_s)
 	;
 
 	return rb_cNef_polyhedron_3;
