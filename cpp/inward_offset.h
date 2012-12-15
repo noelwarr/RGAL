@@ -35,7 +35,7 @@ using namespace Rice;
 
 Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetStep){
     
-      double MAX_COUNTOURS = 100; //Limit variable in case something goes wrong
+      double MAX_COUNTOURS = 100000; //Limit variable in case something goes wrong
       double MIN_POLYGON_AREA = 0.00001; // Minimum area to consider an offset polygon
       
       SsPtr iss = CGAL::create_interior_straight_skeleton_2(poly);
@@ -72,8 +72,9 @@ Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetSt
       } while (!curr_offset_polygons.empty() && count<MAX_COUNTOURS);
       
       if (count==MAX_COUNTOURS) {
-	  cout << "inward_offset error: max number of contours generated, aborting generation." << endl;
-	  cout << "Verify points are given in CCW order for the outer boundary, and CW for holes." << endl;
+	  cout << "inward_offset warning: max number of contours generated, aborting generation." << endl;
+	  cout << "1) Verify points are given in CCW order for the outer boundary, and CW for holes." << endl;
+	  cout << "2) Verify offset is not too small with respect to polygon size." << endl;
       }
 	
 	
@@ -125,7 +126,7 @@ Array inward_offset_polygon(Array polygon_points, double offsetStep){
       Array currHolePoints = from_ruby<Array>(polygon_points[pol]);
       Polygon_2_EPICK holePolygon;
       Point_2 pt;
-      for (unsigned int i = 0; i < outerPoints.size(); ++i){
+      for (unsigned int i = 0; i < currHolePoints.size(); ++i){
 	      pt = from_ruby<Point_2>( currHolePoints[i] );
 	      EPICK::Point_2 pE(CGAL::to_double(pt.x()), CGAL::to_double(pt.y()));
 	      holePolygon.push_back(pE);
