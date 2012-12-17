@@ -32,6 +32,7 @@ Offset_polygon_with_holes_2 offset(Polygon_with_holes_2 pwh, double radius){
 	return offset;
 }
 
+
 Data_Type<Polygon_with_holes_2> define_Polygon_with_holes_2(Rice::Module rb_mCGAL ) {
 	
 			Data_Type<Polygon_with_holes_2> rb_cPolygon_with_holes_2 =
