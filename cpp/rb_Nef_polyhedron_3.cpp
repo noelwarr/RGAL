@@ -44,6 +44,10 @@ public:
 
 /*-----------MAIN METHODS------------*/
 
+Nef_polyhedron_3 build(){
+	Nef_polyhedron_3 N;
+	return N;
+}
 
 Nef_polyhedron_3 build_polyhedron(Array points, Array faces){
 	Polyhedron_builder<HalfedgeDS> pb(points, faces);
@@ -195,6 +199,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 
 	Data_Type<Nef_polyhedron_3> rb_cNef_polyhedron_3 =
 		define_class_under<Nef_polyhedron_3>(rb_mCGAL, "Nef_polyhedron_3")
+		.define_singleton_method("build", &build)
 		.define_singleton_method("build_polyhedron", &build_polyhedron)
 		.define_singleton_method("build_polyline", &build_polyline)
 		.define_singleton_method("build_polygon", &build_polygon)
