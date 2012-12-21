@@ -72,6 +72,11 @@ Nef_polyhedron_3 build_polygon(Array points){
 	return N;
 }
 
+Nef_polyhedron_3 clone_nef(Nef_polyhedron_3 N){
+	Nef_polyhedron_3 O(N);
+	return O;
+}
+
 
 /* Test method
  The goal is to show the qt widget with the polyhedron. 
@@ -205,6 +210,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_singleton_method("build_polygon", &build_polygon)
 		.define_singleton_method("dump", &dump)
 		.define_singleton_method("load", &load)
+		.define_method("clone", &clone_nef)
 		.define_method("simple?", &Nef_polyhedron_3::is_simple)
 		.define_method("empty?", &Nef_polyhedron_3::is_empty)
 		.define_method("space?", &Nef_polyhedron_3::is_space)
@@ -220,7 +226,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_method("split", &split)
 		.define_method("bounding_box", &bounding_box)
 		.define_method("show", &show)
-		.define_method("transform", &Nef_polyhedron_3::transform)
+		.define_method("transform!", &Nef_polyhedron_3::transform)
 	;
 
 	return rb_cNef_polyhedron_3;
