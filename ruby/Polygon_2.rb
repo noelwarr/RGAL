@@ -9,11 +9,7 @@ module CGAL
 				diff = (p1.x - p2.x).abs + (p1.y - p2.y).abs
 				points.delete(p1) if diff < FILTER_LIMIT
 			}
-			if points.length >= 3
-				self.build(points)
-			else
-				nil
-			end
+			self.build(points)
 		end
 	end
 end

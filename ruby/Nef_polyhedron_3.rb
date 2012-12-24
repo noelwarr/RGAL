@@ -33,6 +33,10 @@ module CGAL
 			self.class.dump(self)
 		end
 
+		def intersect?(nef2)
+			!(self * nef2).empty?
+		end
+
 		private
 		def parse_off(off)
 			off = off.split "\n"
