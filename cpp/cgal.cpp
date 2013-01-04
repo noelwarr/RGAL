@@ -18,6 +18,7 @@
 #include "rb_Aff_transformation_3.h"
 #include "inward_offset.h"
 #include "visualization_tools.h"
+#include "rb_Triangle_3.h"
 
 #include "defs.h"
 
@@ -58,6 +59,9 @@ void Init_cgal(void)
 
 		Data_Type<SFace> rb_cSFace =
 			define_SFace(rb_mCGAL);		
+
+		Data_Type<Triangle_3> rb_cTriangle =
+			define_Triangle_3(rb_mCGAL);
 
 	/*	Data_Type<SVertex> rb_cSVertex =
 			define_SVertex(rb_mCGAL);		

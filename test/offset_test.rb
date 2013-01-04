@@ -33,7 +33,7 @@ pointList.push (pointList[0])
 originalPolygonHole = CGAL::Nef_polyhedron_3.build_polyline pointList
 
 fullOriginalPolygon = originalPolygon + originalPolygonHole
-fork {fullOriginalPolygon.show}
+fork {fullOriginalPolygon}
 
 offsets.flatten!
 offsets.collect!{|polygon2|
@@ -43,5 +43,5 @@ offsets.collect!{|polygon2|
                                                                             CGAL::Point_3.build p2.x, p2.y, 0
                                                                            }
                 }
-(offsets.inject{|prev, curr| prev + curr}+fullOriginalPolygon).show
+(offsets.inject{|prev, curr| prev + curr}+fullOriginalPolygon)
 
