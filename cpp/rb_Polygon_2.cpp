@@ -63,6 +63,7 @@ Data_Type<Polygon_2> define_Polygon_2(Rice::Module rb_mCGAL ) {
 		.define_singleton_method("build", &build)
 		//.define_singleton_method("build_after_filtering", &build_after_filtering)
 		.define_method("simple?", &Polygon_2::is_simple)
+		.define_method("convex?", &Polygon_2::is_convex)
 		.define_method("clockwise?", &Polygon_2::is_clockwise_oriented)
 		.define_method("counterclockwise?", &Polygon_2::is_counterclockwise_oriented)
 		.define_method("collinear?", &Polygon_2::is_collinear_oriented)
