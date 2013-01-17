@@ -6,7 +6,7 @@ my_hash2 = {:points=>[[337.235720855427, 101.688004593451, 19.0], [303.135720855
 my_nef = CGAL::Nef_polyhedron_3.build_polyhedron(my_hash2[:points], my_hash2[:facets])
 
 #testing cube builder
-n1 = CGAL::Nef_polyhedron_3.build_cube(1,2,3)
+###n1 = CGAL::Nef_polyhedron_3.build_cube(1,2,3)
 
 #testing normal builder
 n2 = CGAL::Nef_polyhedron_3.new

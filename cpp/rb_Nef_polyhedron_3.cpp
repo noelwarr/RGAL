@@ -1,5 +1,5 @@
 #include "rb_Nef_polyhedron_3.h"
-
+#include <algorithm> // for reverse function
 // Comment to try git, by Rodrigo
 
 template <class HDS>
@@ -31,11 +31,36 @@ public:
 		// Add faces
 		for (unsigned int i = 0; i < faces.size(); i++) {
 			Array indices = Array(faces[i]);
+
+			// First test whether face can be added
+			// Copy indices to a vector of ints
+			std::vector< std::size_t> faceids(indices.size());
+			for (unsigned int j=0;j<indices.size();++j) {
+				faceids[j] = from_ruby<int>(indices[j]);
+			}
+
+			if (B.test_facet(faceids.begin(), faceids.end())) {
+				B.add_facet(faceids.begin(), faceids.end());
+			}
+			else
+			{ //-- reverse the face and test if it would be possible to insert it
+			  std::reverse(faceids.begin(), faceids.end());
+			  if (B.test_facet(faceids.begin(), faceids.end()))
+			  {
+				  B.add_facet(faceids.begin(), faceids.end());
+				  std::cout << "Warning: Nef_polyhedron_3: Reversed orientation of facet " << i << std::endl;
+			  } else {
+				  std::cout << "Error: Nef_polyhedron_3: trying to add facet failed." << std::endl;
+			  }
+			}
+
+			/*
 			B.begin_facet();
 			for (unsigned int j = 0; j < indices.size(); j++) {
 				B.add_vertex_to_facet(from_ruby<int>(indices[j]));
 			}
 			B.end_facet();
+			*/
 		}
     B.end_surface();
   }
