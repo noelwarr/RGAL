@@ -16,7 +16,7 @@ module CGAL
 		end
 
 		def transform(transformation)
-			nef = self.clone
+			nef = Nef_polyhedron_3.clone(self)
 			nef.transform!(transformation)
 			nef
 		end
