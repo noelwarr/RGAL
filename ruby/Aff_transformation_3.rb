@@ -34,7 +34,7 @@ module CGAL
 				self.build_scaling(args[1], (args[2] || 1.0))
 			elsif transformation_type == :translation
 				#TRANSLATION this should take a vector_3 as an argument.  At the moment just array
-				self.build_translation(args[1][0],args[1][0],args[1][0])
+				self.build_translation(args[1][0],args[1][1],args[1][2])
 			elsif transformation_type == :matrix
 				#MATRIX
 				matrix = args[0]
