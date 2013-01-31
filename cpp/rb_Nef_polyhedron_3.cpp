@@ -48,9 +48,9 @@ public:
 			  if (B.test_facet(faceids.begin(), faceids.end()))
 			  {
 				  B.add_facet(faceids.begin(), faceids.end());
-				  std::cout << "Warning: Nef_polyhedron_3: Reversed orientation of facet " << i << std::endl;
+				  //std::cout << "Warning: Nef_polyhedron_3: Reversed orientation of facet " << i << std::endl;
 			  } else {
-				  std::cout << "Error: Nef_polyhedron_3: trying to add facet failed." << std::endl;
+				  //std::cout << "Error: Nef_polyhedron_3: trying to add facet failed." << std::endl;
 			  }
 			}
 
