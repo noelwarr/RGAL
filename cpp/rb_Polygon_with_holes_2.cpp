@@ -32,6 +32,24 @@ Offset_polygon_with_holes_2 offset(Polygon_with_holes_2 pwh, double radius){
 	return offset;
 }
 
+/*
+ * Returns the area of a polygon with holes (taking holes into account)
+ */
+double area(Polygon_with_holes_2 pwh) {
+
+	Polygon_2 boundary = pwh.outer_boundary();
+
+	// Area of outer boundary
+	double totalArea = CGAL::to_double(boundary.area());
+
+	// Add area of holes (that should be negative)
+	Polygon_with_holes_2::Hole_const_iterator vci;
+	for (vci = pwh.holes_begin(); vci != pwh.holes_end(); ++vci) {
+		totalArea += CGAL::to_double(vci->area());
+	}
+	return totalArea;
+}
+
 
 Data_Type<Polygon_with_holes_2> define_Polygon_with_holes_2(Rice::Module rb_mCGAL ) {
 	
@@ -41,6 +59,7 @@ Data_Type<Polygon_with_holes_2> define_Polygon_with_holes_2(Rice::Module rb_mCGA
 			.define_method("holes", &holes)
 			.define_method("offset", &offset)
 			.define_method("to_a", &to_a)
+			.define_method("area", &area)
 		;
 
 	return rb_cPolygon_with_holes_2;
