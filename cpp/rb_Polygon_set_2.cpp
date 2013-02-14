@@ -13,6 +13,18 @@ Polygon_set_2 join(Array polygons){
 	return S;
 }
 
+
+Polygon_set_2 join_polygons_with_holes(Array pwhs){
+	vector<Polygon_with_holes_2> polygon_vector;
+	for (unsigned int i = 0; i < pwhs.size(); i++) {
+		Polygon_with_holes_2 pwh = from_ruby<Polygon_with_holes_2>(pwhs[i]);
+		polygon_vector.push_back(pwh);
+	}
+	Polygon_set_2 S;
+	S.join(polygon_vector.begin(), polygon_vector.end());
+	return S;
+}
+
 // Returns a new polygon set that is equal to joining polySet1 and polySet2
 Polygon_set_2 join_polygon_sets(Polygon_set_2 polySet1, Polygon_set_2 polySet2){
 	Polygon_set_2 S(polySet1);
@@ -68,6 +80,7 @@ Data_Type<Polygon_set_2> define_Polygon_set_2(Rice::Module rb_mCGAL ) {
 	Data_Type<Polygon_set_2> rb_cPolygon_set_2 =
 		define_class_under<Polygon_set_2>(rb_mCGAL, "Polygon_set_2")
 		.define_singleton_method("join", &join)
+		.define_singleton_method("join_polygons_with_holes", &join_polygons_with_holes)
 		.define_singleton_method("join_polygon_sets", &join_polygon_sets)
 		.define_singleton_method("difference_polygons", &difference_polygons)
 		.define_singleton_method("difference_polygons_with_holes", &difference_polygons_with_holes)
