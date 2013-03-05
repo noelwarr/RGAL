@@ -75,16 +75,11 @@ Nef_polyhedron_3 build_polyhedron(Array points, Array faces){
 	return N;
 }
 
-Nef_polyhedron_3 build_polyhedron_from_obj(String objPolyhedron){
+Nef_polyhedron_3 build_polyhedron_from_off(String objPolyhedron){
 	stringstream ss;
 	ss << objPolyhedron.c_str();
-	Polyhedron_3 P;
-	cout << "objPolyhedron.c_str(): " << objPolyhedron.c_str() << endl;
-	cout << "ss: " << ss << endl;
-	ss >> P;
-	cout << " P is valid: "<< P.is_valid() << " P is closed: " << P.is_closed() << endl;
-	Nef_polyhedron_3 N(P);
-
+	Nef_polyhedron_3 N;
+	CGAL::OFF_to_nef_3(ss, N);
 	return N;
 }
 
@@ -237,7 +232,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		define_class_under<Nef_polyhedron_3>(rb_mCGAL, "Nef_polyhedron_3")
 		.define_singleton_method("build", &build)
 		.define_singleton_method("build_polyhedron", &build_polyhedron)
-		.define_singleton_method("build_polyhedron_from_obj", &build_polyhedron_from_obj)
+		.define_singleton_method("build_polyhedron_from_off", &build_polyhedron_from_off)
 		.define_singleton_method("build_polyline", &build_polyline)
 		.define_singleton_method("build_polygon", &build_polygon)
 		.define_singleton_method("dump", &dump)

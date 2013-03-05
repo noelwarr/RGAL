@@ -16,6 +16,7 @@
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <CGAL/Nef_polyhedron_3.h>
+#include <CGAL/OFF_to_nef_3.h>
 #include <CGAL/IO/Nef_polyhedron_iostream_3.h>
 #include <CGAL/minkowski_sum_3.h>
 #include <CGAL/Polygon_2.h>

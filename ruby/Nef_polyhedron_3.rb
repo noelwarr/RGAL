@@ -4,7 +4,17 @@ module CGAL
 			if args.first == nil
 				self.build
 			elsif args.first.is_a?(Hash)
-				self.build_polyhedron(args.first[:points], args.first[:facets])
+				points = args.first[:points]
+				facets = args.first[:facets]
+				off = "OFF\n#{points.length} #{facets.length} 0\n"
+				points.each{|point|
+					off += "#{point.join(" ")}\n"
+				}
+				facets.each{|facet|
+					off += "#{facet.length} #{facet.join(" ")} \n"
+				}
+				self.build_polyhedron_from_off(off)
+				#self.build_polyhedron(args.first[:points], args.first[:facets])
 			elsif args.first.is_a?(Array)
 				self.build_polyline(args.first)
 			end
