@@ -18,6 +18,7 @@ public:
     CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
     typedef typename HDS::Vertex   Vertex;
     typedef typename Vertex::Point PointHDS;
+
     B.begin_surface( points.size(), faces.size());
     // Add vertices
 		for (unsigned int i = 0; i < points.size(); i++) {
@@ -53,14 +54,6 @@ public:
 				  //std::cout << "Error: Nef_polyhedron_3: trying to add facet failed." << std::endl;
 			  }
 			}
-
-			/*
-			B.begin_facet();
-			for (unsigned int j = 0; j < indices.size(); j++) {
-				B.add_vertex_to_facet(from_ruby<int>(indices[j]));
-			}
-			B.end_facet();
-			*/
 		}
     B.end_surface();
   }
@@ -249,7 +242,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_singleton_method("build_polygon", &build_polygon)
 		.define_singleton_method("dump", &dump)
 		.define_singleton_method("load", &load)
-		.define_method("clone", &clone_nef)
+		.define_singleton_method("clone", &clone_nef)
 		.define_method("simple?", &Nef_polyhedron_3::is_simple)
 		.define_method("empty?", &Nef_polyhedron_3::is_empty)
 		.define_method("space?", &Nef_polyhedron_3::is_space)

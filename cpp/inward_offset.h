@@ -27,7 +27,7 @@ using namespace Rice;
  *   
  * For do_inward_offset_from_EPICK the input polygon must be EPICK, but the output is EPECK.
  * 
- * It returns all inwads offsets with a distance of @offsetStep 
+ * It returns all inwards offsets with a distance of @offsetStep
  * 
  * Return type is Array of [Array of Polygon_2 (EPECK)]
  */
@@ -35,7 +35,7 @@ using namespace Rice;
 
 Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetStep){
     
-      double MAX_COUNTOURS = 100000; //Limit variable in case something goes wrong
+      double MAX_COUNTOURS = 1000; //Limit variable in case something goes wrong
       double MIN_POLYGON_AREA = 0.00001; // Minimum area to consider an offset polygon
       
       SsPtr iss = CGAL::create_interior_straight_skeleton_2(poly);
@@ -64,7 +64,7 @@ Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetSt
 	    Array newArray(currentOffsetPolygons);
 	    outputCollection.push(newArray);
 	  } else {
-	    cout << "inward_offset warning: offset ignored due to area smaller than MIN_POLYGON_AREA" << endl;
+	    cout << "inward_offset.h warning: offset ignored due to area smaller than MIN_POLYGON_AREA" << endl;
 	  }
 	}
 	offset += offsetStep; // Increase offset for next contour
