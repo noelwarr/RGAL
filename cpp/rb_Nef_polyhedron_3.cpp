@@ -255,6 +255,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_method("space?", &Nef_polyhedron_3::is_space)
 		.define_method("valid?", &is_valid)
 		.define_method("bounded?", &is_bounded)
+		.define_method("regularization", &Nef_polyhedron_3::regularization)
 		.define_method("+", &Nef_polyhedron_3::operator+)
 		.define_method("-", &Nef_polyhedron_3::operator-)
 		.define_method("*", &Nef_polyhedron_3::operator*)
