@@ -21,7 +21,7 @@ end
 #make
 Dir.chdir(File.join(File.dirname(__FILE__),"cpp"))
 create_makefile 'cgal'
-make_result = system("make")
+make_result = system("make -j 2")
 Dir.chdir("..")
 
 if !make_result

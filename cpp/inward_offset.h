@@ -131,10 +131,13 @@ Array inward_offset_polygon(Array polygon_points, double offsetStep){
 	      EPICK::Point_2 pE(CGAL::to_double(pt.x()), CGAL::to_double(pt.y()));
 	      holePolygon.push_back(pE);
       }
-      finalPolygon.add_hole(holePolygon);
+      if (holePolygon.is_simple()) {
+        finalPolygon.add_hole(holePolygon);
+      }
     }
-    
-    outputArray = do_inward_offset_from_EPICK(finalPolygon,offsetStep); 
+    if (outerPolygon.is_simple()) {
+      outputArray = do_inward_offset_from_EPICK(finalPolygon,offsetStep); 
+    }
     
   } else {
     
