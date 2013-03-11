@@ -33,14 +33,21 @@ module CGAL
 
 		def structure
 			volumes = Array.new
-			self.split.each{|nef|
-				volumes.push parse_off(nef.to_off)
-			}
+			begin
+				self.split.each{|nef|
+					volumes.push parse_off(nef.to_off)
+				}
+			rescue
+				puts "valid? #{valid?} | simple? #{simple?}"
+				reg = self.closure.regularization
+				puts "valid? #{reg.valid?} | simple? #{reg.simple?}"
+				puts self.regularization.to_off
+			end
 			volumes
 		end
 
 		def dump
-			self.class.dump(self)
+			self.class.dump(self).force_encoding('utf-8')
 		end
 
 		def intersect?(nef2)
