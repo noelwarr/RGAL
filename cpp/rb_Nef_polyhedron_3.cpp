@@ -143,13 +143,14 @@ Array split(Nef_polyhedron_3 N){
 	vector<Nef_polyhedron_3> nefs;
 	Nef_polyhedron_3::Volume_const_iterator vi = ++N.volumes_begin();
 	Nef_polyhedron_3::Shell_entry_const_iterator si;
-	CGAL_forall_volumes(vi,N) {
+	Nef_polyhedron_3 R;
+	R = N.regularization();
+	CGAL_forall_volumes(vi,R) {
 		if(vi->mark()) {
 			Nef_polyhedron_3::Shell_entry_const_iterator si;
 			CGAL_forall_shells_of(si, vi) {
 				Nef_polyhedron_3::SFace_const_handle sfch(si);
-				cout << sfch->mark();
-				Nef_polyhedron_3 O(N,sfch);
+				Nef_polyhedron_3 O(R,sfch);
 				nefs.push_back(O);
 			}  
 		}

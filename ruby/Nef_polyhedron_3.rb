@@ -13,7 +13,7 @@ module CGAL
 				facets.each{|facet|
 					off += "#{facet.length} #{facet.join(" ")} \n"
 				}
-				self.build_polyhedron_from_off(off)
+				self.build_polyhedron_from_off(off).regularization
 				#self.build_polyhedron(args.first[:points], args.first[:facets])
 			elsif args.first.is_a?(Array)
 				self.build_polyline(args.first)
