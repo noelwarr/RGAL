@@ -1,3 +1,4 @@
+require_relative '../cgal.rb'
 module CGAL
 	class Nef_polyhedron_3
 		def self.new(*args)
@@ -33,16 +34,12 @@ module CGAL
 
 		def structure
 			volumes = Array.new
-			begin
-				self.split.each{|nef|
-					volumes.push parse_off(nef.to_off)
-				}
-			rescue
-				puts "valid? #{valid?} | simple? #{simple?}"
-				reg = self.closure.regularization
-				puts "valid? #{reg.valid?} | simple? #{reg.simple?}"
-				puts self.regularization.to_off
-			end
+			self.split.each{|nef|
+				nef = nef.closure.regularization
+				if !nef.empty? 
+					volumes.push parse_off(nef.closure.regularization.to_off)
+				end
+			}
 			volumes
 		end
 
@@ -61,8 +58,10 @@ module CGAL
 			return nil if metadata.length < 3
 			point_count = metadata[0].to_i
 			facet_count = metadata[1].to_i
-			points = []
-			facets = []
+			points_map 	= Hash.new
+			facets_map 	= Hash.new
+			points 			= Array.new
+			facets 			= Array.new
 			off[3,point_count].each{|line|
 				c = line.split(" ")
 				points.push([	c[0].to_f,
@@ -70,11 +69,27 @@ module CGAL
 											c[2].to_f])
 			}
 			off[3+point_count,facet_count].each{|line|
-				(indices = line.split(" ")).delete_at(0)
-				indices.collect!{|index| index.to_i}
-				facets.push(indices)
+				indices = line.split(" ")[1,3]
+				indices.collect!{|index| 
+					p = points[index.to_i]
+					if points_map[p].nil?
+						i = points_map.length
+						points_map[p] =	i
+					else
+						points_map[p]
+					end
+				}
+				if indices.uniq.length > 2
+					duplicate = false
+					indices.permutation.each{|facet|
+						duplicate = true if facets_map.has_key? facet
+						
+					}
+					facets_map[indices] = true if duplicate == false
+				end
 			}
-			Hash[:points => points, :facets => facets]
+			#remove duplicate points and link facets to them
+			Hash[:points => points_map.keys, :facets => facets_map.keys]
 		end
 	end
 end
