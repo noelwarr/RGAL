@@ -15,15 +15,23 @@ module CGAL
 					off += "#{facet.length} #{facet.join(" ")} \n"
 				}
 				self.build_polyhedron_from_off(off).regularization
-				#self.build_polyhedron(args.first[:points], args.first[:facets])
 			elsif args.first.is_a?(Array)
 				self.build_polyline(args.first)
 			end
 		end
 
-		def self.build_cube(x,y,z)
-			self.build_polyhedron( [[0,0,0],[x,0,0],[x,y,0],[0,y,0],[0,y,z],[0,0,z],[x,0,z],[x,y,z]],
-									[[0,1,6,5],[1,2,7,6],[2,3,4,7],[3,0,5,4],[3,2,1,0],[4,5,6,7]])
+		def self.build_cube(*args)
+			if args.length == 3
+				args = [0,0,0] + args
+			elsif args.length != 6
+				raise
+			end
+			x1, y1, z1 = args[0..2]
+			x2, y2, z2 = args[3..5]
+			self.build_polyhedron( [[x1,y1,z1],[x2,y1,z1],[x2,y2,z1],[x1,y2,z1],
+															[x1,y2,z2],[x1,y1,z2],[x2,y1,z2],[x2,y2,z2]],
+														 [[0,1,6,5],[1,2,7,6],[2,3,4,7],
+															[3,0,5,4],[3,2,1,0],[4,5,6,7]])
 		end
 
 		def transform(transformation)

@@ -13,8 +13,13 @@ def structure
 	raise if !(n1-n2).empty?
 end
 
+def build_cube
+	CGAL::Nef_polyhedron_3.build_cube(0,0,0,1,2,3)
+end
+
 load_nef
 structure
+build_cube
 
 __END__
 Selective Nef Complex
