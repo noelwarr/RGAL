@@ -2,7 +2,8 @@ require_relative "../cgal.rb"
 
 #try loading Nef
 def load_nef
-	n1 = CGAL::Nef_polyhedron_3.load DATA.read
+	data = File.read(__FILE__).sub(/\A.*\n__END__\n/m, '')
+	n1 = CGAL::Nef_polyhedron_3.load data
 	raise if !(n1.valid? && n1.simple?)
 end
 
