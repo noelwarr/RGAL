@@ -16,7 +16,13 @@ module CGAL
 				}
 				self.build_polyhedron_from_off(off).regularization
 			elsif args.first.is_a?(Array)
-				self.build_polyline(args.first)
+				points = args.first
+				points.collect!{|p|CGAL::Point_3.new(p)} if points.first.is_a?(Array)
+				if args.last == :polyline
+					self.build_polyline(points)
+				else
+					self.build_polygon(points)
+				end
 			end
 		end
 
@@ -26,8 +32,7 @@ module CGAL
 			elsif args.length != 6
 				raise
 			end
-			x1, y1, z1 = args[0..2]
-			x2, y2, z2 = args[3..5]
+			x1, y1, z1, x2, y2, z2 = args
 			self.build_polyhedron( [[x1,y1,z1],[x2,y1,z1],[x2,y2,z1],[x1,y2,z1],
 															[x1,y2,z2],[x1,y1,z2],[x2,y1,z2],[x2,y2,z2]],
 														 [[0,1,6,5],[1,2,7,6],[2,3,4,7],

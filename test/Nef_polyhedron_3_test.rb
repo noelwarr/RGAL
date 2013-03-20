@@ -18,9 +18,43 @@ def build_cube
 	CGAL::Nef_polyhedron_3.build_cube(0,0,0,1,2,3)
 end
 
+def polyline
+	points = [[0,0,0],[1,1,1],[2,2,0]].collect{|p|CGAL::Point_3.new(p)}
+	CGAL::Nef_polyhedron_3.new(points, :polyline)
+end
+
+def polygon
+	points = [[0,0,0],[1,1,1],[2,2,0]]#.collect{|p|CGAL::Point_3.new(p)}
+	CGAL::Nef_polyhedron_3.new(points)
+end
+
+def vistii
+	data = File.read(__FILE__).sub(/\A.*\n__END__\n/m, '')
+	n1 = CGAL::Nef_polyhedron_3.load data
+	f1 = CGAL::Nef_polyhedron_3.new([[1,1,0],[-1,1,0],[-1,-1,0],[1,-1,0]])
+	f2 = CGAL::Nef_polyhedron_3.new([[1,0,0],[0,1,0],[-1,0,0],[0,-1,0]])
+	pl1 = CGAL::Nef_polyhedron_3.new([[1,0,0],[-1,0,0]], :polyline)
+	pl2 = CGAL::Nef_polyhedron_3.new([[0,-1,0],[0,1,0]], :polyline)
+	pl = pl1 + pl2
+
+	t = Time.now
+	CGAL::minkowski_sum_3 n1, f2
+	puts "diamond : #{Time.now - t}"
+	t = Time.now
+	CGAL::minkowski_sum_3 n1, f1
+	puts "square : #{Time.now - t}"
+	t = Time.now
+	
+	CGAL::minkowski_sum_3 n1, pl
+	puts "pl : #{Time.now - t}"
+end
+
+vistii
 load_nef
 structure
 build_cube
+polyline
+polygon
 
 __END__
 Selective Nef Complex

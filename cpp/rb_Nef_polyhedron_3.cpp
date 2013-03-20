@@ -86,12 +86,8 @@ Nef_polyhedron_3 build_polyhedron_from_off(String objPolyhedron){
 Nef_polyhedron_3 build_polygon(Array points){
 	vector<Point_3> pts;
 	for (unsigned int i = 0; i < points.size(); i++) {
-		Array coordinate = Array(points[i]);
-		Point_3 point(
-				from_ruby<double>(coordinate[0]),
-				from_ruby<double>(coordinate[1]),
-				from_ruby<double>(coordinate[2]));
-		pts.push_back(point);
+		Point_3 pt = from_ruby<Point_3>(points[i]);
+		pts.push_back(pt);
 	}
 	Nef_polyhedron_3 N( pts.begin(), 
 											pts.end());
@@ -252,6 +248,7 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_method("+", &Nef_polyhedron_3::operator+)
 		.define_method("-", &Nef_polyhedron_3::operator-)
 		.define_method("*", &Nef_polyhedron_3::operator*)
+		.define_method("^", &Nef_polyhedron_3::operator^)
 		.define_method("vertices", &vertices)
 		.define_method("halfedges", &halfedges)
 		.define_method("halffacets", &halffacets)
