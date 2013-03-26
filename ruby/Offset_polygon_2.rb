@@ -2,7 +2,7 @@ module CGAL
 	class Offset_polygon_2
 		def to_points
 			curves = self.curves
-			result = [curves[0].source]
+			result = []#curves[0].source]
 			curves.each{|curve|
 				if curve.circular?
 					result += circular_curve_to_points(curve)

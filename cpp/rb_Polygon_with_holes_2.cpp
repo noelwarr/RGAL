@@ -1,5 +1,16 @@
 #include "rb_Polygon_with_holes_2.h"
 
+Polygon_with_holes_2 build_polygon_with_holes_2(Array array) {
+	Polygon_2 outer_boundary = from_ruby<Polygon_2>(array[0]);
+	vector<Polygon_2> holes;
+	for (unsigned int i = 1; i != array.size(); ++i){
+		Polygon_2 hole = from_ruby<Polygon_2>(array[i]);
+		holes.push_back(hole);
+	}
+	return Polygon_with_holes_2(outer_boundary, holes.begin(), holes.end());
+}
+
+
 Polygon_2 outer_boundary(Polygon_with_holes_2 pwh) {
 	Polygon_2 polygon = pwh.outer_boundary();
 	return polygon;
@@ -55,6 +66,7 @@ Data_Type<Polygon_with_holes_2> define_Polygon_with_holes_2(Rice::Module rb_mCGA
 	
 			Data_Type<Polygon_with_holes_2> rb_cPolygon_with_holes_2 =
 			define_class_under<Polygon_with_holes_2>(rb_mCGAL, "Polygon_with_holes_2")
+			.define_singleton_method("build", &build_polygon_with_holes_2)
 			.define_method("outer_boundary", &outer_boundary)
 			.define_method("holes", &holes)
 			.define_method("offset", &offset)

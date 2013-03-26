@@ -14,5 +14,8 @@ module CGAL
 		def to_s
 			"(#{self.to_a.join(", ")})"
 		end
+		def to_3(z = 0)
+			Point_3.new self.to_a.push(z)
+		end
 	end
 end
