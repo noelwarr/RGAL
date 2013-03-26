@@ -1,7 +1,8 @@
 module CGAL
 	class Polygon_2
 		FILTER_LIMIT = 0.0001
-		def self.new(points, filter = {filter: true})
+		def self.new(pts, filter = {filter: true})
+		  points = pts.clone #make a copy of the points so they don't get duplicated
 			points.collect!{|point|
 				point.is_a?(Array) ? Point_2.new(point[0], point[1]) : point
 			}
