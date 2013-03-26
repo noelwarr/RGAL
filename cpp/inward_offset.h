@@ -27,17 +27,22 @@ using namespace Rice;
  *   
  * For do_inward_offset_from_EPICK the input polygon must be EPICK, but the output is EPECK.
  * 
- * It returns all inwards offsets with a distance of @offsetStep
+ * Returns the first #countours inwards offsets with a distance of @offsetStep, if #contours is not specified o is 0, all contours all returned
  * 
  * Return type is Array of [Array of Polygon_2 (EPECK)]
  */
 
 
-Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetStep){
+Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetStep, int contours){
     
-      double MAX_COUNTOURS = 1000; //Limit variable in case something goes wrong
-      double MIN_POLYGON_AREA = 0.00001; // Minimum area to consider an offset polygon
-      
+      int MAX_CONTOURS = 1000; //Limit variable in case something goes wrong
+      double MIN_POLYGON_AREA = 1.0; // Minimum area to consider an offset polygon
+
+      // If max number of contours unspecified, we assume all offsets need to be computed
+      if (contours==0) {
+    	  contours = MAX_CONTOURS;
+      }
+
       SsPtr iss = CGAL::create_interior_straight_skeleton_2(poly);
       
       PolygonPtrVectorEPECK curr_offset_polygons; // Will store the polygons for one fixed offset
@@ -48,30 +53,31 @@ Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetSt
       double offset = offsetStep;
       int count = 1;
       do {
-	curr_offset_polygons  = CGAL::create_offset_polygons_2<Polygon_2>(offset,*iss, Kernel());
-	if (!curr_offset_polygons.empty()) {
-	  double totalPolygonArea = 0;
-	  Array currentOffsetPolygons; // Offset polygons for one fixed offset
-	  
-	  for( typename PolygonPtrVectorEPECK::const_iterator pi = curr_offset_polygons.begin() ; pi != curr_offset_polygons.end() ; ++ pi ) {
-	      Polygon_2 polygon2 = Polygon_2((*pi)->vertices_begin (), (*pi)->vertices_end());
-	      currentOffsetPolygons.push(**pi);
-	      
-	      totalPolygonArea += CGAL::to_double ( (*pi)->area() );
-	    } 
-	  if (totalPolygonArea>MIN_POLYGON_AREA) {
-	    offset_collection.push_back(curr_offset_polygons);
-	    Array newArray(currentOffsetPolygons);
-	    outputCollection.push(newArray);
-	  } else {
-	    cout << "inward_offset.h warning: offset ignored due to area smaller than MIN_POLYGON_AREA" << endl;
-	  }
-	}
-	offset += offsetStep; // Increase offset for next contour
-	count++;
-      } while (!curr_offset_polygons.empty() && count<MAX_COUNTOURS);
+			curr_offset_polygons  = CGAL::create_offset_polygons_2<Polygon_2>(offset,*iss, Kernel());
+			if (!curr_offset_polygons.empty()) {
+			  double totalPolygonArea = 0;
+			  Array currentOffsetPolygons; // Offset polygons for one fixed offset
+
+			  for( typename PolygonPtrVectorEPECK::const_iterator pi = curr_offset_polygons.begin() ; pi != curr_offset_polygons.end() ; ++ pi ) {
+				  Polygon_2 polygon2 = Polygon_2((*pi)->vertices_begin (), (*pi)->vertices_end());
+				  currentOffsetPolygons.push(**pi);
+
+				  totalPolygonArea += CGAL::to_double ( (*pi)->area() );
+				}
+
+			  if (totalPolygonArea>MIN_POLYGON_AREA) {
+				offset_collection.push_back(curr_offset_polygons); //TODO Rodrigo: I dont think this is used
+				Array newArray(currentOffsetPolygons);
+				outputCollection.push(newArray);
+			  } else {
+				cout << "inward_offset.h warning: offset ignored due to area smaller than MIN_POLYGON_AREA" << endl;
+			  }
+			}
+			offset += offsetStep; // Increase offset for next contour
+			count++;
+      } while (!curr_offset_polygons.empty() && count<=contours);
       
-      if (count==MAX_COUNTOURS) {
+      if (count>=MAX_CONTOURS) {
 	  cout << "inward_offset warning: max number of contours generated, aborting generation." << endl;
 	  cout << "1) Verify points are given in CCW order for the outer boundary, and CW for holes." << endl;
 	  cout << "2) Verify offset is not too small with respect to polygon size." << endl;
@@ -98,12 +104,12 @@ Array do_inward_offset_from_EPICK(Polygon_with_holes_EPICK poly, double offsetSt
  * 	Array of Array of Point_2 (ruby)
  * 	The first array has polygons, the first position MUST have the points of the outer boundary, the rest, if any, the holes 
  * 
- * It returns all inwads offsets with a distance of @offsetStep 
+ * It returns the first #contours inwards offsets with a distance of @offsetStep (if contours=0, it returns them all)
  * Return type is Array of [Array of Polygon_2]
  * 
  */
 
-Array inward_offset_polygon(Array polygon_points, double offsetStep){
+Array inward_offset_polygon(Array polygon_points, double offsetStep, int contours){
   
   // Convert the points in polygon_points into a Polygon_with_holes_EPICK
   Array outputArray;
@@ -136,7 +142,7 @@ Array inward_offset_polygon(Array polygon_points, double offsetStep){
       }
     }
     if (outerPolygon.is_simple()) {
-      outputArray = do_inward_offset_from_EPICK(finalPolygon,offsetStep); 
+      outputArray = do_inward_offset_from_EPICK(finalPolygon, offsetStep, contours);
     }
     
   } else {
