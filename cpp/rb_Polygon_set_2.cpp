@@ -1,4 +1,4 @@
-result = include "rb_Polygon_set_2.h"
+#include "rb_Polygon_set_2.h"
 
 Polygon_set_2 join(Array polygons){
 	vector<Polygon_2> polygon_vector;
