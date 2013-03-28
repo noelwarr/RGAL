@@ -56,6 +56,13 @@ Array to_a(Polygon_2 polygon){
 	return points;
 }
 
+Offset_polygon_with_holes_2 offset(Polygon_2 polygon, double radius){
+  const double err_bound = 0.01;
+  Offset_polygon_with_holes_2  offset;
+  offset = approximated_offset_2 (polygon, radius, err_bound);
+	return offset;
+}
+
 Data_Type<Polygon_2> define_Polygon_2(Rice::Module rb_mCGAL ) {
 
 	Data_Type<Polygon_2> rb_cPolygon_2 =
@@ -69,6 +76,7 @@ Data_Type<Polygon_2> define_Polygon_2(Rice::Module rb_mCGAL ) {
 		.define_method("collinear?", &Polygon_2::is_collinear_oriented)
 		.define_method("area", &Polygon_2::area)
 		.define_method("to_a", &to_a)
+		.define_method("offset", &offset)
 	;
 
 	return rb_cPolygon_2;
