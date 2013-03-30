@@ -5,7 +5,7 @@ module CGAL
 			result = []#curves[0].source]
 			curves.each{|curve|
 				if curve.circular?
-					result += circular_curve_to_points(curve)
+					result += circular_curve_to_points(curve.center, curve.source, curve.target, curve.radius)
 				else
 					result.push curve.target
 				end
@@ -15,7 +15,7 @@ module CGAL
     
     private
 
-		def angle(point1, point2)				
+		def self.angle(point1, point2)				
 			x, y = point1.to_a.zip(point2.to_a).collect{|c1, c2| c2 - c1}
 			atan = Math::atan(y.to_f/x.to_f).abs
 			pi = Math::PI
@@ -27,22 +27,22 @@ module CGAL
 			end
 		end
 		
-		def circular_curve_to_points(curve)
+		def self.circular_curve_to_points(curve_center, curve_source, curve_target, curve_radius)
 			result = Array.new
-			precision = Math::PI/24
-			a1 = angle(curve.center, curve.source)
-			a2 = angle(curve.center, curve.target)
+			precision = Math::PI/12 #Rodrigo: changed 24 to 12
+			a1 = angle(curve_center, curve_source)
+			a2 = angle(curve_center, curve_target)
 			a2 = (a2 > a1) ? a2 : (a2 + Math::PI * 2)
 			angle = (a2 - a1)
 			number_of_steps = (angle / precision).to_i.abs
 			step_angle = (angle / number_of_steps)
 			(1..number_of_steps-1).each{|step|
 				a = a1 + ( step_angle * step )
-				x = (Math::cos(a) * curve.radius) + curve.center.x
-				y = Math::sin(a) * curve.radius + curve.center.y
+				x = (Math::cos(a) * curve_radius) + curve_center.x
+				y = Math::sin(a) * curve_radius + curve_center.y
 				result.push CGAL::Point_2.build(x,y)
 			}
-			result += [curve.target]
+			result += [curve_target]
 			return result
 		end
 	end
