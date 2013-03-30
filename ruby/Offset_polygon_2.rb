@@ -5,28 +5,14 @@ module CGAL
 			result = []#curves[0].source]
 			curves.each{|curve|
 				if curve.circular?
-					result += circular_curve_to_points(curve.center, curve.source, curve.target, curve.radius)
+					result += Offset_polygon_2.circular_curve_to_points(curve.center, curve.source, curve.target, curve.radius)
 				else
 					result.push curve.target
 				end
 			}
 			return result
 		end
-    
-    private
-
-		def self.angle(point1, point2)				
-			x, y = point1.to_a.zip(point2.to_a).collect{|c1, c2| c2 - c1}
-			atan = Math::atan(y.to_f/x.to_f).abs
-			pi = Math::PI
-			case
-				when (x >= 0) && (y >= 0) then atan
-				when (x <  0) && (y >= 0) then pi - atan
-				when (x <  0) && (y <  0) then pi + atan
-				when (x >= 0) && (y <  0) then (2 * pi) - atan
-			end
-		end
-		
+    		
 		def self.circular_curve_to_points(curve_center, curve_source, curve_target, curve_radius)
 			result = Array.new
 			precision = Math::PI/12 #Rodrigo: changed 24 to 12
@@ -45,5 +31,19 @@ module CGAL
 			result += [curve_target]
 			return result
 		end
+		
+  private
+
+    def self.angle(point1, point2)        
+      x, y = point1.to_a.zip(point2.to_a).collect{|c1, c2| c2 - c1}
+      atan = Math::atan(y.to_f/x.to_f).abs
+      pi = Math::PI
+      case
+        when (x >= 0) && (y >= 0) then atan
+        when (x <  0) && (y >= 0) then pi - atan
+        when (x <  0) && (y <  0) then pi + atan
+        when (x >= 0) && (y <  0) then (2 * pi) - atan
+      end
+    end
 	end
 end
