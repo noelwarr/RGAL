@@ -19,6 +19,8 @@
 #include "inward_offset.h"
 #include "visualization_tools.h"
 #include "rb_Triangle_3.h"
+#include "intersection_tools.h"
+
 
 #include "defs.h"
 
@@ -40,6 +42,8 @@ void Init_cgal(void)
 			.define_module_function("minkowski_sum_3", &minkowski_sum_3)
 			.define_module_function("inward_offset_polygon", &inward_offset_polygon)
 			.define_module_function("show_Nef_polyhedron_3", &show_Nef_polyhedron_3)
+			.define_module_function("segments_intersect", &segments_intersect)
+			.define_module_function("intersect_segments", &intersect_segments)
 		;
 		
 		Data_Type<Nef_polyhedron_3> rb_cNef_polyhedron_3 =
@@ -102,4 +106,5 @@ void Init_cgal(void)
   }
   RUBY_CATCH
 }
+
 

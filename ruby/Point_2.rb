@@ -17,5 +17,21 @@ module CGAL
 		def to_3(z = 0)
 			Point_3.new self.to_a.push(z)
 		end
+		
+    # Returns the Euclidean distance from the point to p
+    def distance_to(p)
+      x_diff = self.x-p.x
+      y_diff = self.y-p.y
+      return Math.sqrt(x_diff*x_diff + y_diff*y_diff)
+    end
+    
+    # Returns a new vector that is the opposite
+    def opposite(p)
+      return CGAL::Point_2.build(self.y, self.x)
+    end
+
 	end
+	
+
+	
 end
