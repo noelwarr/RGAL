@@ -5,3 +5,6 @@ polygon3 = CGAL::Polygon.new([[12,0],[11,1],[11,0]])
 (polygon1 + polygon2)[0].offset(0.2)
 (polygon1 - polygon3)[0].offset(0.2)
 CGAL::Polygon.join([polygon1,polygon2,polygon3])[0].offset(0.3)
+pts = polygon1.root.to_a.collect{|p|p.to_a}
+
+puts CGAL::inward_offset_polygon(pts, 3, 1).inspect

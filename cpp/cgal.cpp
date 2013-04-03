@@ -21,7 +21,7 @@
 #include "rb_Triangle_3.h"
 
 #include "defs.h"
-
+ 
 
 using namespace std;
 using namespace Rice;

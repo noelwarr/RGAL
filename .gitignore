@@ -1,3 +1,4 @@
 mkmf.log
 dir_config
 cpp/Makefile
+!.gitignore

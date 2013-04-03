@@ -31,7 +31,7 @@ module CGAL
 			elsif args.is_a?(Polygon_with_holes_2)
 				@root = args
 			elsif args.is_a?(Polygon_2)
-				@root = Polygon_2.build [args]
+				@root = Polygon_with_holes_2.build [args]
 			else
 				raise "Wrong argument. Expected array of points or Polygon_with holes"
 			end

@@ -11,7 +11,7 @@ typedef CGAL::Straight_skeleton_2<EPICK> Ss ;
 typedef boost::shared_ptr<Ss> SsPtr ;
 typedef std::vector< boost::shared_ptr<Polygon_2> > PolygonPtrVectorEPECK ;
 
-
+ 
 using namespace std;
 using namespace Rice;
 
