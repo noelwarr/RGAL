@@ -1,0 +1,2 @@
+CGAL_Qt3 CGAL/IO /usr/local/lib
+myQt3Libs /usr/include/qt3 /usr/share/qt3/lib
