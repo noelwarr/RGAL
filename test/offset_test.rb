@@ -22,7 +22,7 @@ Array polyList = Array.new()
 polyList.push(poly1)
 polyList.push(hole2)
 
-offsets = CGAL::inward_offset_polygon(polyList,0.1)	
+offsets = CGAL::inward_offset_polygon(polyList,0.1,1)	
 
 pointList = poly1.to_a.collect{|p2| CGAL::Point_3.build p2.x, p2.y, 0}
 pointList.push (pointList[0])

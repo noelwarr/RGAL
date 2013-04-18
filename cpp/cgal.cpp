@@ -16,6 +16,8 @@
 #include "rb_Iso_cuboid_3.h"
 #include "rb_Lazy_exact_nt.h"
 #include "rb_Aff_transformation_3.h"
+#include "rb_Halffacet_cycle.h"
+#include "rb_Plane_3.h"
 #include "inward_offset.h"
 #include "visualization_tools.h"
 #include "rb_Triangle_3.h"
@@ -46,6 +48,9 @@ void Init_cgal(void)
 			.define_module_function("intersect_segments", &intersect_segments)
 		;
 		
+		Data_Type<Plane_3> rb_cPlane_3 = 
+		  define_Plane_3(rb_mCGAL);
+
 		Data_Type<Nef_polyhedron_3> rb_cNef_polyhedron_3 =
 			define_Nef_polyhedron_3(rb_mCGAL);
 
@@ -70,6 +75,9 @@ void Init_cgal(void)
 	/*	Data_Type<SVertex> rb_cSVertex =
 			define_SVertex(rb_mCGAL);		
 */
+		Data_Type<Halffacet_cycle> rb_cHalffacet_cycle = 
+		  define_Halffacet_cycle(rb_mCGAL);
+
 		Data_Type<Point_3> rb_cPoint_3 =
 			define_Point_3(rb_mCGAL);
 

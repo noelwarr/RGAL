@@ -22,11 +22,7 @@ public:
     B.begin_surface( points.size(), faces.size());
     // Add vertices
 		for (unsigned int i = 0; i < points.size(); i++) {
-			Array point = Array(points[i]);
-			PointHDS pt = PointHDS(
-				from_ruby<double>(point[0]),
-				from_ruby<double>(point[1]),
-				from_ruby<double>(point[2]));
+			Point_3 pt = from_ruby<Point_3>(points[i]);
 			B.add_vertex(pt);
 		}
 		// Add faces
@@ -235,11 +231,11 @@ Data_Type<Nef_polyhedron_3> define_Nef_polyhedron_3(Rice::Module rb_mCGAL ) {
 		.define_singleton_method("build_polygon", &build_polygon)
 		.define_singleton_method("dump", &dump)
 		.define_singleton_method("load", &load)
-		.define_singleton_method("clone", &clone_nef)
+		.define_method("clone", &clone_nef)
 		.define_method("simple?", &Nef_polyhedron_3::is_simple)
 		.define_method("empty?", &Nef_polyhedron_3::is_empty)
-		.define_method("space?", &Nef_polyhedron_3::is_space)
 		.define_method("valid?", &is_valid)
+		.define_method("space?", &Nef_polyhedron_3::is_space)
 		.define_method("bounded?", &is_bounded)
 		.define_method("complement", &Nef_polyhedron_3::complement)
 		.define_method("interior", &Nef_polyhedron_3::interior)

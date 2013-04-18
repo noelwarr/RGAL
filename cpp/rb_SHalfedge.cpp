@@ -1,11 +1,11 @@
 #include "rb_SHalfedge.h"
 
 Point_3 source(SHalfedge she){
-	return she->source()->point();
+	return she->source()->center_vertex()->point();
 }
 
 Point_3 target(SHalfedge she){
-	return she->target()->point();
+	return she->target()->center_vertex()->point();
 }
 
 SFace incident_sface(SHalfedge she){

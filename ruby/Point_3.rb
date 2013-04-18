@@ -12,11 +12,19 @@ module CGAL
 			end
 			Point_3.build(p[0],p[1],p[2])
 		end
+
+		def to_2
+			Point_2.new(self.to_a[0..1])
+		end
+
 		def ==(point)
 			self.to_a == point.to_a
 		end
+
 		def to_s
 			"(#{self.to_a.join(", ")})"
 		end
+
+
 	end
 end

@@ -9,13 +9,15 @@ end
 
 #testing structure method
 def structure
-	n1 = CGAL::Nef_polyhedron_3.build_cube(1,2,3)
+	p1, p2 = [[0,0,0],[1,1,1]].collect{|p|CGAL::Point_3.new(p)}
+	n1 = CGAL::Nef_polyhedron_3.build_cube(p1,p2)
 	n2 = CGAL::Nef_polyhedron_3.new n1.structure[0]
 	raise if !(n1-n2).empty?
 end
 
 def build_cube
-	CGAL::Nef_polyhedron_3.build_cube(0,0,0,1,2,3)
+	p1, p2 = [[0,0,0],[1,1,1]].collect{|p|CGAL::Point_3.new(p)}
+	CGAL::Nef_polyhedron_3.build_cube(p1,p2)
 end
 
 def polyline
@@ -28,12 +30,47 @@ def polygon
 	CGAL::Nef_polyhedron_3.new(points)
 end
 
+def shells
+	points1 = [[0,0,0],[5,0,0],[0,5,0]].collect{|p|CGAL::Point_3.new(p)}
+	points2 = [[1,1,0],[3,1,0],[1,3,0]].collect{|p|CGAL::Point_3.new(p)}
+	points3 = [[-1,-1,0],[1,1,0]].collect{|p|CGAL::Point_3.new(p)}
+	points4 = [[10,10,0],[11,10,0],[10,11,0]].collect{|p|CGAL::Point_3.new(p)}
+	n1 = CGAL::Nef_polyhedron_3.new(points1)
+	n2 = CGAL::Nef_polyhedron_3.new(points2)
+	n3 = CGAL::Nef_polyhedron_3.new(points3, :polyline)
+	n4 = CGAL::Nef_polyhedron_3.new(points4)
+	n  = n1 - n2 + n3 + n4
+	hfs = n.halffacets.select{|hf| hf.plane.face_up?}
+	arr = hfs.collect{|hf|
+		polygon_data = hf.facet_cycles.collect{|cycle|
+			cycle.points.collect{|p|
+				p.to_2
+			}
+		}
+		CGAL::Polygon.new(polygon_data)
+	}
+end
 
+def extruded_polygon
+	points1 = [[0,0,0],[5,0,0],[0,5,0]].collect{|p|CGAL::Point_3.new(p)}
+	#CGAL::Nef_polyhedron_3.new points1, 2, :extruded_polygon
+end
+
+def build_polyhedron
+	coordinates = [[0,0,0],[1,0,0],[0,1,0],[0,0,1]]
+	points = coordinates.collect{|c| CGAL::Point_3.new(c) }
+	facets = [[2,1,0],[3,0,1],[3,1,2],[3,2,0]]
+	CGAL::Nef_polyhedron_3.build_polyhedron(points, facets)
+end
+
+extruded_polygon
 load_nef
 structure
 build_cube
+build_polyhedron
 polyline
 polygon
+shells
 
 __END__
 Selective Nef Complex

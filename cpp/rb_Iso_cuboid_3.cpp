@@ -43,12 +43,6 @@ Iso_cuboid_3 build_cuboid(Array array){
 	return CGAL::bounding_box(points.begin(), points.end());
 }
 
-Nef_polyhedron_3 to_nef(Iso_cuboid_3 cuboid){
-	Cube_builder<HalfedgeDS> builder(cuboid);
-	Polyhedron_3 P;
-	P.delegate(builder);
-	return Nef_polyhedron_3(P);
-}
 
 double xmin(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.xmin());}
 double ymin(Iso_cuboid_3 cuboid){	return CGAL::to_double(cuboid.ymin());}
@@ -63,7 +57,7 @@ Data_Type<Iso_cuboid_3> define_Iso_cuboid_3(Rice::Module rb_mCGAL ) {
 	Data_Type<Iso_cuboid_3> rb_cIso_cuboid_3 =
 			define_class_under<Iso_cuboid_3>(rb_mCGAL, "Iso_cuboid_3")
 			.define_singleton_method("build", &build_cuboid)
-			.define_method("to_nef", &to_nef)
+			.define_method("[]", &Iso_cuboid_3::operator[])
 			.define_method("xmin", &xmin)
 			.define_method("ymin", &ymin)
 			.define_method("zmin", &zmin)

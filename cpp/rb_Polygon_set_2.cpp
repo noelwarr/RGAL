@@ -59,6 +59,12 @@ Polygon_set_2 difference_polygons_with_holes(Polygon_with_holes_2 poly1, Polygon
 	return pset1;
 }
 
+Polygon_set_2 intersect_polygon_sets(Polygon_set_2 ps1, Polygon_set_2 ps2){
+	Polygon_set_2 ps;
+	ps.intersection(ps1,ps2);
+	return ps;
+}
+
 Array to_a(Polygon_set_2 S){
 	Array ps;	
 	list<Polygon_with_holes_2> res;
@@ -75,6 +81,10 @@ bool is_empty(Polygon_set_2 S) {
     return S.is_empty();
 }
 
+bool do_intersect_polygon_with_holes(Polygon_set_2 ps, Polygon_with_holes_2 pwh){
+	return ps.do_intersect(pwh);
+}
+
 Data_Type<Polygon_set_2> define_Polygon_set_2(Rice::Module rb_mCGAL ) {
 	
 	Data_Type<Polygon_set_2> rb_cPolygon_set_2 =
@@ -82,9 +92,11 @@ Data_Type<Polygon_set_2> define_Polygon_set_2(Rice::Module rb_mCGAL ) {
 		.define_singleton_method("join", &join)
 		.define_singleton_method("join_polygons_with_holes", &join_polygons_with_holes)
 		.define_singleton_method("join_polygon_sets", &join_polygon_sets)
+		.define_singleton_method("intersect_polygon_sets", &intersect_polygon_sets)
 		.define_singleton_method("difference_polygons", &difference_polygons)
 		.define_singleton_method("difference_polygons_with_holes", &difference_polygons_with_holes)
 		.define_singleton_method("difference_polygon_sets", &difference_polygon_sets)
+		.define_method("intersect_polygon_with_holes?", &do_intersect_polygon_with_holes)
 		.define_method("to_a", &to_a)
 		.define_method("is_empty", &is_empty)
 
