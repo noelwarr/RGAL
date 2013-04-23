@@ -8,8 +8,8 @@
 #include "rb_Point_2.h"
 #include "rb_Point_3.h"
 #include "rb_X_monotone_curve_2.h"
-#include "rb_Offset_polygon_with_holes_2.h"
-#include "rb_Offset_polygon_2.h"
+#include "rb_Segmented_polygon_with_holes_2.h"
+#include "rb_Segmented_polygon_2.h"
 #include "rb_Polygon_set_2.h"
 #include "rb_Polygon_with_holes_2.h"
 #include "rb_Polygon_2.h"
@@ -87,11 +87,11 @@ void Init_cgal(void)
 		Data_Type<X_monotone_curve_2> rb_cX_monotone_curve_2 =
 			define_X_monotone_curve_2(rb_mCGAL);
 
-		Data_Type<Offset_polygon_with_holes_2> rb_cOffset_polygon_with_holes_2 =
-			define_Offset_polygon_with_holes_2(rb_mCGAL);
+		Data_Type<Segmented_polygon_with_holes_2> rb_cSegmented_polygon_with_holes_2 =
+			define_Segmented_polygon_with_holes_2(rb_mCGAL);
 
-		Data_Type<Offset_polygon_2> rb_cOffset_polygon_2 =
-			define_Offset_polygon_2(rb_mCGAL);
+		Data_Type<Segmented_polygon_2> rb_cSegmented_polygon_2 =
+			define_Segmented_polygon_2(rb_mCGAL);
 
 		Data_Type<Polygon_set_2> rb_cPolygon_set_2 =
 			define_Polygon_set_2(rb_mCGAL);

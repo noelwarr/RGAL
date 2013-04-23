@@ -1,11 +1,11 @@
 module CGAL
-	class Offset_polygon_2
+	class Segmented_polygon_2
 		def to_points
 			curves = self.curves
 			result = []#curves[0].source]
 			curves.each{|curve|
 				if curve.circular?
-					result += Offset_polygon_2.circular_curve_to_points(curve.center, curve.source, curve.target, curve.radius)
+					result += Segmented_polygon_2.circular_curve_to_points(curve.center, curve.source, curve.target, curve.radius)
 				else
 					result.push curve.target
 				end

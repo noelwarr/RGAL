@@ -56,9 +56,9 @@ Array to_a(Polygon_2 polygon){
 	return points;
 }
 
-Offset_polygon_with_holes_2 offset(Polygon_2 polygon, double radius){
+Segmented_polygon_with_holes_2 offset(Polygon_2 polygon, double radius){
   const double err_bound = 0.01;
-  Offset_polygon_with_holes_2  offset;
+  Segmented_polygon_with_holes_2  offset;
   offset = approximated_offset_2 (polygon, radius, err_bound);
 	return offset;
 }

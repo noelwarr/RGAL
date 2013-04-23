@@ -36,9 +36,9 @@ Array to_a(Polygon_with_holes_2 pwh){
   }
 	return p2;
 }
-Offset_polygon_with_holes_2 offset(Polygon_with_holes_2 pwh, double radius){
+Segmented_polygon_with_holes_2 offset(Polygon_with_holes_2 pwh, double radius){
   const double err_bound = 0.01;
-  Offset_polygon_with_holes_2  offset;
+  Segmented_polygon_with_holes_2  offset;
   offset = approximated_offset_2 (pwh, radius, err_bound);
 	return offset;
 }
