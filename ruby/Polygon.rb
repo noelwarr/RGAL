@@ -19,15 +19,18 @@ module CGAL
 				if args[0].is_a?(Point_2) || args[0][0].is_a?(Point_2)
 					args == [args] if args[0].is_a?(Point_2)
 				else
-					args == [args] if args[0][0].is_a?(Numeric)
+					args = [args] if args[0][0].is_a?(Numeric)
 					args = args.collect{|point_list| 
-						point_list.collect{|c|Point_2 c}
+						point_list.collect{|c|
+							Point_2.new c
+						}
 					}
 				end
 				polys = args.collect{|point_list|
 					poly = Polygon_2.build point_list
 					if !poly.simple? || poly.collinear?
-						raise "Polygon points make a non valid polygon" 
+						puts point_list.inspect
+						raise "Polygon points make a non valid polygon : #{point_list.inspect}" 
 					end
 					poly
 				}

@@ -1,12 +1,12 @@
 module CGAL
 	class Point_2
-		def self.new(*args)
-			if args.length == 2
-				p = args
-			elsif args[0].is_a?(Array)
-				p = args[0]
+		def self.new(arg1, arg2 = nil)
+			if arg2.nil?
+				x, y = arg1[0], arg1[1]
+			else
+				x, y = arg1, arg2
 			end
-			self.build(p[0],p[1])
+			self.build(x.to_f,y.to_f)
 		end
 		def ==(point)
 			self.to_a == point.to_a
