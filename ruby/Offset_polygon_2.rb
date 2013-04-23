@@ -15,12 +15,13 @@ module CGAL
     		
 		def self.circular_curve_to_points(curve_center, curve_source, curve_target, curve_radius)
 			result = Array.new
-			precision = Math::PI/12 #Rodrigo: changed 24 to 12
+			segments = 24
+			precision = Math::PI/(segments/2)
 			a1 = angle(curve_center, curve_source)
 			a2 = angle(curve_center, curve_target)
 			a2 = (a2 > a1) ? a2 : (a2 + Math::PI * 2)
 			angle = (a2 - a1)
-			number_of_steps = (angle / precision).to_i.abs
+			number_of_steps = (angle / precision).to_i.abs % (segments)
 			step_angle = (angle / number_of_steps)
 			(1..number_of_steps-1).each{|step|
 				a = a1 + ( step_angle * step )

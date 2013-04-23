@@ -14,7 +14,33 @@ module CGAL
 		#build from a polygon_with_holes_2, a polygon_2 or an array of points
 		#points can come in Point_2 or [float,float].  Just one array of points
 		#builds a simple polygon.  Nested arrays will build a countour with holes
-		def initialize(args = nil)
+		def initialize(args)
+			if args.is_a?(Array)
+				if args[0].is_a?(Point_2) || args[0][0].is_a?(Point_2)
+					args == [args] if args[0].is_a?(Point_2)
+				else
+					args == [args] if args[0][0].is_a?(Numeric)
+					args = args.collect{|point_list| 
+						point_list.collect{|c|Point_2 c}
+					}
+				end
+				polys = args.collect{|point_list|
+					poly = Polygon_2.build point_list
+					if !poly.simple? || poly.collinear?
+						raise "Polygon points make a non valid polygon" 
+					end
+					poly
+				}
+
+				@root = Polygon_with_holes_2.build polys
+			elsif args.is_a?(Polygon_with_holes_2)
+				@root = args
+			elsif args.is_a?(Polygon_2)
+				@root = Polygon_with_holes_2.build [args]
+			else
+				raise "Wrong argument. Expected array of points or Polygon_2 or Polygon_with_holes_2"
+			end
+=begin			
 			if args.is_a?(Array)
 				if args[0][0].is_a?(Numeric) || args[0].is_a?(Point_2)
 					input = [args.clone]
@@ -32,12 +58,10 @@ module CGAL
 				@root = args
 			elsif args.is_a?(Polygon_2)
 				@root = Polygon_with_holes_2.build [args]
-			elsif args.nil?
-				poly = CGAL::Polygon_2.build []
-				@root = CGAL::Polygon_with_holes_2.build [poly]
 			else
 				raise "Wrong argument. Expected array of points or Polygon_with_holes"
 			end
+=end
 		end
 
 		def empty?
@@ -53,7 +77,7 @@ module CGAL
 		#offset
 		def offset(radius, args = 0)
 			opwh = root.offset radius
-			polygons = opwh.to_a.collect{|op| op.to_points}
+			polygons = opwh.to_a.collect{|op| op.to_points }
 			Polygon.new(polygons)
 		end
 
