@@ -17,7 +17,7 @@ module CGAL
 		def initialize(args)
 			if args.is_a?(Array)
 				if args[0].is_a?(Point_2) || args[0][0].is_a?(Point_2)
-					args == [args] if args[0].is_a?(Point_2)
+					args = [args] if args[0].is_a?(Point_2)
 				else
 					args = [args] if args[0][0].is_a?(Numeric)
 					args = args.collect{|point_list| 
@@ -29,42 +29,20 @@ module CGAL
 				polys = args.collect{|point_list|
 					poly = Polygon_2.build point_list
 					if !poly.simple? || poly.collinear?
-						puts point_list.inspect
 						raise "Polygon points make a non valid polygon : #{point_list.inspect}" 
 					end
 					poly
 				}
-
 				@root = Polygon_with_holes_2.build polys
 			elsif args.is_a?(Polygon_with_holes_2)
+				args.to_a.each{|poly| raise "Polygon_2 is not simple" if !poly.simple? }
 				@root = args
 			elsif args.is_a?(Polygon_2)
+				raise "Polygon_2 is not simple" if !args.simple?
 				@root = Polygon_with_holes_2.build [args]
 			else
 				raise "Wrong argument. Expected array of points or Polygon_2 or Polygon_with_holes_2"
 			end
-=begin			
-			if args.is_a?(Array)
-				if args[0][0].is_a?(Numeric) || args[0].is_a?(Point_2)
-					input = [args.clone]
-				else
-					input = args
-				end
-				polygons = input.collect{|polygon|
-					points = polygon.collect{|point| 
-						point.is_a?(Array) ? Point_2.new(point) : point
-					}
-					Polygon_2.build points
-				}
-				@root = Polygon_with_holes_2.build polygons
-			elsif args.is_a?(Polygon_with_holes_2)
-				@root = args
-			elsif args.is_a?(Polygon_2)
-				@root = Polygon_with_holes_2.build [args]
-			else
-				raise "Wrong argument. Expected array of points or Polygon_with_holes"
-			end
-=end
 		end
 
 		def empty?
@@ -79,7 +57,7 @@ module CGAL
 
 		#offset
 		def offset(radius, args = 0)
-			opwh = root.offset radius
+			opwh = root.offset radius 
 			polygons = opwh.to_a.collect{|op| op.to_points }
 			Polygon.new(polygons)
 		end

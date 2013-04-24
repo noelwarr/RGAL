@@ -7,9 +7,10 @@ module CGAL
 				if curve.circular?
 					result += Segmented_polygon_2.circular_curve_to_points(curve.center, curve.source, curve.target, curve.radius)
 				else
-					result.push curve.target
+					result.push(curve.target)
 				end
 			}
+			#filter_points(result)
 			return result
 		end
     		
@@ -34,6 +35,16 @@ module CGAL
 		end
 		
   private
+
+  	def self.filter_points(*points)
+  		result = [points.first]
+  		points.each_cons{|p1,p2|
+  			if (p1.x.abs - p2.x.abs).abs + (p1.y.abs - p2.y.abs).abs > 0.0001
+  				result.push p2
+  			end
+  		}
+  		points.replace result
+  	end
 
     def self.angle(point1, point2)        
       x, y = point1.to_a.zip(point2.to_a).collect{|c1, c2| c2 - c1}

@@ -62,6 +62,7 @@ double area(Polygon_with_holes_2 pwh) {
 }
 
 
+
 Data_Type<Polygon_with_holes_2> define_Polygon_with_holes_2(Rice::Module rb_mCGAL ) {
 	
 			Data_Type<Polygon_with_holes_2> rb_cPolygon_with_holes_2 =
