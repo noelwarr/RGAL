@@ -47,12 +47,13 @@ typedef Nef_polyhedron_3::SFace_const_handle							SFace;
 typedef Nef_polyhedron_3::Halffacet_cycle_const_iterator	Halffacet_cycle;
 
 typedef Kernel::Point_2																		Point_2;
+typedef Kernel::Circle_2																	Circle_2;
 typedef CGAL::Polygon_2<Kernel>  		   										Polygon_2;
 typedef CGAL::Polygon_with_holes_2<Kernel>  							Polygon_with_holes_2;
 typedef CGAL::Polygon_set_2<Kernel>  											Polygon_set_2;
 typedef CGAL::Gps_circle_segment_traits_2<Kernel> 			 	Gps_traits_2;
 typedef Gps_traits_2::Polygon_2                    				Segmented_polygon_2;
 typedef Gps_traits_2::Polygon_with_holes_2         				Segmented_polygon_with_holes_2;
-typedef Segmented_polygon_2::X_monotone_curve_2						X_monotone_curve_2;
+typedef Segmented_polygon_2::X_monotone_curve_2						Segment_2;
 
 #endif

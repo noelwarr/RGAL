@@ -7,7 +7,7 @@
 #include "rb_SHalfedge.h"
 #include "rb_Point_2.h"
 #include "rb_Point_3.h"
-#include "rb_X_monotone_curve_2.h"
+#include "rb_Segment_2.h"
 #include "rb_Segmented_polygon_with_holes_2.h"
 #include "rb_Segmented_polygon_2.h"
 #include "rb_Polygon_set_2.h"
@@ -18,11 +18,12 @@
 #include "rb_Aff_transformation_3.h"
 #include "rb_Halffacet_cycle.h"
 #include "rb_Plane_3.h"
+#include "rb_Circle_2.h"
 #include "inward_offset.h"
 #include "visualization_tools.h"
 #include "rb_Triangle_3.h"
 #include "intersection_tools.h"
-
+ 
 
 #include "defs.h"
  
@@ -50,6 +51,9 @@ void Init_cgal(void)
 		
 		Data_Type<Plane_3> rb_cPlane_3 = 
 		  define_Plane_3(rb_mCGAL);
+
+		Data_Type<Circle_2> rb_cCircle_2 = 
+		  define_Circle_2(rb_mCGAL);
 
 		Data_Type<Nef_polyhedron_3> rb_cNef_polyhedron_3 =
 			define_Nef_polyhedron_3(rb_mCGAL);
@@ -84,8 +88,8 @@ void Init_cgal(void)
 		Data_Type<Point_2> rb_cPoint_2 =
 			define_Point_2(rb_mCGAL);
 		
-		Data_Type<X_monotone_curve_2> rb_cX_monotone_curve_2 =
-			define_X_monotone_curve_2(rb_mCGAL);
+		Data_Type<Segment_2> rb_cSegment_2 =
+			define_Segment_2(rb_mCGAL);
 
 		Data_Type<Segmented_polygon_with_holes_2> rb_cSegmented_polygon_with_holes_2 =
 			define_Segmented_polygon_with_holes_2(rb_mCGAL);
