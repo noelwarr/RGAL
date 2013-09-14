@@ -20,3 +20,8 @@ Things you ought to know
 1. Make sure this isn't what you want: [cgal-bindings](https://code.google.com/p/cgal-bindings/)
 2. Rice is for Mac and Linux only
 3. This code contains little or no comments.  Sorry, I'll try and be nicer about that.
+
+Dependencies
+============
+- [CGAL](http://www.cgal.org)
+- [Rice](http://rice.rubyforge.org/)
